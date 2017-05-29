@@ -1,5 +1,5 @@
 # react_webpack_typescript
-> 以Typescript为编程语言，使用React框架及Webpack打包工具设计的应用模板
+> 以Typescript为编程语言，使用React框架及Webpack打包工具设计的组件式开发程序模板
 
 ### 基础环境
 | 序号     | 名称     | 版本        |
