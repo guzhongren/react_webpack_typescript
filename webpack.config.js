@@ -1,5 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
+
+var UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
+var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 module.exports = {
     context: path.resolve(__dirname, 'src'),
     entry: [
@@ -60,6 +63,17 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE.ENV': "production" //development
         }),
+        // 生产环境用
+        // new UglifyJsPlugin({
+        //     beautify: false,
+        //     mangle: { screw_ie8 : true },
+        //     compress: { screw_ie8: true, warnings: false },
+        //     comments: false
+        // }),
+        new CommonsChunkPlugin({
+            name: "vendor",
+            filename: "vendor.bundle.js"
+        })
         // new webpack.HotModuleReplacementPlugin(),
         // // 开启全局的模块热替换(HMR)
         // new webpack.NamedModulesPlugin(),
