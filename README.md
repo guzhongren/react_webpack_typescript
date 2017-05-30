@@ -31,7 +31,7 @@ npm run build
 ```
 or
 ```shell
-webpack
+webpack --watch
 ```
 ### 效果
 ![React+ Webpack+ Typescript](./gitImgs/react_webpack_typescript.png)
