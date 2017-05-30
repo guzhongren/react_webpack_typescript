@@ -5,8 +5,8 @@
 | 序号     | 名称     | 版本        |
 | :------:  |:------: | :---------:|
 |1          |Node      | ^v6.10.3LTS|
-|2          |Typesctipt|^2.3        |           
-|3          |Webpack   |2           |
+|2          |Typesctipt| ^2.3       |           
+|3          |Webpack   | 2          |
 
 ### 安装
 
@@ -27,7 +27,7 @@ git clone https://github.com/Guzhongren/react_webpack_typescript.git
 ### 运行
 在项目跟目录运行如下命令中的一个
 ```shell
-npm run start
+npm run build
 ```
 or
 ```shell
