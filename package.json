@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "del-cli dist/js/ -f",
-    "build": "webpack --watch",
-    "dev": "webpack-dev-server  --content-base=dist --inline --watch --hot --progress --config webpack.config.js"
+    "build": "webpack --config webpack.publish.config.js",
+    "dev": "webpack-dev-server --config webpack.develop.config.js"
   },
   "author": "",
   "license": "ISC",
