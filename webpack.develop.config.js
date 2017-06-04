@@ -18,15 +18,15 @@ module.exports = {
     ],
     output: {
         filename: "bundle.js",
-        path: path.resolve(__dirname + "/test/dist/js"),
-        publicPath: '/test'
+        path: path.resolve(__dirname + "/wwwroot/dist/js"),
+        publicPath: '/wwwroot'
     },
 
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
     devServer: {
         // 指定启动服务的更目录
-        contentBase: path.resolve(__dirname, "test"),
+        contentBase: path.resolve(__dirname, "wwwroot"),
         // 指定端口号
         port: 8080,
         host: 'localhost',
@@ -37,7 +37,7 @@ module.exports = {
         historyApiFallback: true,
         noInfo: false,
         // stats: 'minimal',
-        publicPath: "/test/dist/js/",
+        publicPath: "/wwwroot/dist/js/",
         // layy:true,
         // filename: "bundle.js"
     },
