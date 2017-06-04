@@ -9522,9 +9522,31 @@ module.exports = __webpack_require__(19);
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(80);
 var ReactDOM = __webpack_require__(99);
+<<<<<<< HEAD:wwwroot/dist/js/bundle.js
 var App_1 = __webpack_require__(82);
 var module;
 ReactDOM.render(React.createElement(App_1.App, { compiler: "Ts", framework: "React" }), document.getElementById("example"));
+=======
+// import { AppContainer } from "react-hot-loader";
+var App_1 = __webpack_require__(82);
+var module;
+ReactDOM.render(
+// <AppContainer>
+React.createElement(App_1.App, { compiler: "Ts", framework: "React" }), 
+// </AppContainer>,
+document.getElementById("example"));
+/*// 模块热替换的 API
+if (module.hot) {
+    module.hot.accept('./components/App', () => {
+        ReactDOM.render(
+            <AppContainer>
+                <App compiler="Ts" framework="React" />
+            </AppContainer>,
+            document.getElementById("example")
+        );
+    });
+}*/
+>>>>>>> be9601b0a597f263667bb2c38007aa351815c02e:wwwroot/dist/js/bundle.js
 
 
 /***/ }),
