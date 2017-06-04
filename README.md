@@ -24,14 +24,16 @@ git clone https://github.com/Guzhongren/react_webpack_typescript.git
         ```shell
         npm install -g webpack
         ```        
-### 运行
-在项目跟目录运行如下命令中的一个
+### 开发环境运行
+在项目跟目录运行如下命令
+```shell
+npm run dev
+```
+在浏览器中打开http://localhost:8080即可
+### 生产环境运行
 ```shell
 npm run build
 ```
-or
-```shell
-webpack --watch
-```
+在浏览器中打开wwwroot下的index.html页面即可
 ### 效果
 ![React+ Webpack+ Typescript](./gitImgs/react_webpack_typescript.png)

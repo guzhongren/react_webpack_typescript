@@ -1,37 +1,37 @@
 const path = require('path');
 const webpack = require('webpack');
 
-var UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 module.exports = {
     context: path.resolve(__dirname, 'src'),
     entry: [
-        // 'react-hot-loader/patch',
-        // // 开启 React 代码的模块热替换(HMR)
-        // 'webpack-dev-server/client?http://localhost:8080',
-        // // 为 webpack-dev-server 的环境打包代码
-        // // 然后连接到指定服务器域名与端口
-        // 'webpack/hot/only-dev-server',
-        // 为热替换(HMR)打包好代码
-        // only- 意味着只有成功更新运行代码才会执行热替换(HMR)
         path.resolve(__dirname, "./src/index.tsx")
     ],
     output: {
         filename: "bundle.js",
-        path: path.resolve(__dirname + "/dist/js"),
-        publicPath: '/'
+        path: path.resolve(__dirname + "/wwwroot/dist/js"),
+        publicPath: '/wwwroot'
     },
 
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
-    devServer: {
-        hot: false,
-        // 开启服务器的模块热替换(HMR)
-        contentBase: path.resolve(__dirname, "/dist/js"),
-        // 输出文件的路径
-        publicPath: '/'
-        // 和上文 output 的“publicPath”值保持一致
-    },
+    // devServer: {
+    //     // 指定启动服务的更目录
+    //     contentBase: path.resolve(__dirname, "wwwroot"),
+    //     // 指定端口号
+    //     port: 8080,
+    //     host: 'localhost',
+    //     // 启用热更新
+    //     hot: true,
+    //     // 以下信息可有可无，为了完整
+    //     inline: true,
+    //     historyApiFallback: true,
+    //     noInfo: false,
+    //     // stats: 'minimal',
+    //     publicPath: "/wwwroot/dist/js/",
+    //     // layy:true,
+    //     // filename: "bundle.js"
+    // },
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: [".ts", ".tsx", ".js", ".json"]
@@ -70,10 +70,11 @@ module.exports = {
         //     compress: { screw_ie8: true, warnings: false },
         //     comments: false
         // }),
-        new CommonsChunkPlugin({
-            name: "vendor",
-            filename: "vendor.bundle.js"
-        })
+        // new CommonsChunkPlugin({
+        //     name: "vendor",
+        //     filename: "vendor.bundle.js",
+        //     minChunks: 2
+        // }),
         // new webpack.HotModuleReplacementPlugin(),
         // // 开启全局的模块热替换(HMR)
         // new webpack.NamedModulesPlugin(),
