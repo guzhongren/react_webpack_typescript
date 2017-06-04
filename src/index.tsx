@@ -6,5 +6,5 @@ let module: any;
 
 ReactDOM.render(
         <App compiler="Ts" framework="React" />,
-    document.getElementById("example")
+    document.getElementById("app")
 );
