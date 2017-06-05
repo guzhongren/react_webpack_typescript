@@ -1,29 +1,27 @@
 const path = require('path');
 const webpack = require('webpack');
-
+var isDevBuild = process.argv.indexOf('--env.prod') < 0;
 // var UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 module.exports = {
     context: path.resolve(__dirname, 'src'),
     entry: [
-        // 'react-hot-loader/patch',
-        // // 开启 React 代码的模块热替换(HMR)
-        // 'webpack-dev-server/client?http://localhost:8080',
-        // // 为 webpack-dev-server 的环境打包代码
-        // // 然后连接到指定服务器域名与端口
-        // 'webpack/hot/only-dev-server',
-        // 为热替换(HMR)打包好代码
-        // only- 意味着只有成功更新运行代码才会执行热替换(HMR)
         path.resolve(__dirname, "./src/index.tsx")
     ],
     output: {
         filename: "bundle.js",
         path: path.resolve(__dirname + "/wwwroot/dist/js"),
+<<<<<<< HEAD
         publicPath: '/wwwroot'
+=======
+        publicPath: '/wwwroot',
+
+        libraryTarget: 'amd' //编译ags api
+>>>>>>> ags4
     },
 
     // Enable sourcemaps for debugging webpack's output.
-    devtool: "source-map",
+    devtool: isDevBuild?"cheap-module-eval-source-map":null,
     devServer: {
         // 指定启动服务的更目录
         contentBase: path.resolve(__dirname, "wwwroot"),
@@ -43,7 +41,7 @@ module.exports = {
     },
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: [".ts", ".tsx", ".js", ".json"]
+        extensions: ["config.js", ".ts", ".tsx", ".js", ".json"]
     },
 
     module: {
@@ -57,6 +55,15 @@ module.exports = {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader?modules',],
             },
+            // fonts
+            {
+                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: "url-loader?limit=10000&name=dist/fa/[hash].[ext]&mimetype=application/font-woff"
+            },
+            {
+                test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: "file-loader?name=dist/fa/[hash].[ext]"
+            }
         ]
     },
 
@@ -64,14 +71,23 @@ module.exports = {
     // assume a corresponding global variable exists and use that instead.
     // This is important because it allows us to avoid bundling all of our
     // dependencies, which allows browsers to cache those libraries between builds.
-    // externals: {
-    //     "react": "React",
-    //     "react-dom": "ReactDOM"
-    // },
+    externals: [{},
+    function (context, request, callback) {
+        if (/^dojo/.test(request) ||
+            /^dojox/.test(request) ||
+            /^dijit/.test(request) ||
+            /^esri/.test(request)
+        ) {
+            return callback(null, "amd " + request);
+            // return callback(null, "dojo.require('" + request + "')");
+        }
+        callback();
+    }
+    ],
     plugins: [
-        new webpack.DefinePlugin({
-            'process.env.NODE.ENV': "development" //production
-        }),
+        // new webpack.DefinePlugin({
+        //     'process.env.NODE.ENV': "development" //production
+        // }),
         // 生产环境用
         // new UglifyJsPlugin({
         //     beautify: false,
@@ -85,9 +101,9 @@ module.exports = {
         //     minChunks: 2
         // }),
         new webpack.HotModuleReplacementPlugin(),
-        // // 开启全局的模块热替换(HMR)
-        // new webpack.NamedModulesPlugin(),
-        // // 当模块热替换(HMR)时在浏览器控制台输出对用户更友好的模块名字信息
+        // 开启全局的模块热替换(HMR)
+        new webpack.NamedModulesPlugin(),
+        // 当模块热替换(HMR)时在浏览器控制台输出对用户更友好的模块名字信息
     ],
 
 };
