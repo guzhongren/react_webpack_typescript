@@ -11,13 +11,9 @@ module.exports = {
     output: {
         filename: "bundle.js",
         path: path.resolve(__dirname + "/wwwroot/dist/js"),
-<<<<<<< HEAD
-        publicPath: '/wwwroot'
-=======
         publicPath: '/wwwroot',
 
-        libraryTarget: 'amd' //编译ags api
->>>>>>> ags4
+        // libraryTarget: 'amd' //编译ags api
     },
 
     // Enable sourcemaps for debugging webpack's output.

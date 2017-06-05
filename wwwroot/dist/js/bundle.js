@@ -9523,8 +9523,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(80);
 var ReactDOM = __webpack_require__(99);
 var App_1 = __webpack_require__(82);
-var module;
-ReactDOM.render(React.createElement(App_1.App, { compiler: "Ts", framework: "React" }), document.getElementById("example"));
+ReactDOM.render(React.createElement(App_1.App, { compiler: "Ts", framework: "React" }), document.getElementById("app"));
 
 
 /***/ }),
