@@ -7,7 +7,7 @@
     // 转译 React 组件为 JavaScript 代码
   ],
   "plugins": [
-    "react-hot-loader/babel"
-    // 开启 React 代码的模块热替换(HMR)
+    "react-hot-loader/babel",// 开启 React 代码的模块热替换(HMR)
+    ["import", { "libraryName": "antd", "style": "css" }] // `style: true` 会加载 less 文件
   ]
 }
