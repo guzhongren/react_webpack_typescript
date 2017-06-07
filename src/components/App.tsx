@@ -1,8 +1,8 @@
 import * as React from "react";
 import $ = require("jquery");
 // antd Test
-import { Button } from "antd";
-
+// import { Button } from "antd";
+import { Button, ButtonGroup } from 'reactstrap';
 // import {AppMain} from "./map";
 export interface AppProps { compiler: string; framework: string; }
 
@@ -21,8 +21,15 @@ export class App extends React.Component<AppProps, undefined> {
         return (
             <div>
                 <h1 id="test">Hello from {this.props.compiler} and {this.props.framework}</h1>
-
-                <Button onClick={this.handleOnclick.bind(this)}>antd Test</Button>
+                {/*antd*/}
+                {/*<Button onClick={this.handleOnclick.bind(this)}>antd Test</Button>*/}
+                
+                {/*react-bootstrap*/}
+                <ButtonGroup>
+                    <Button color="primary">Left</Button>{' '}
+                    <Button color="secondary">Middle</Button>{' '}
+                    <Button color="success">Right</Button>
+                </ButtonGroup>
                 {/*<AppMain/>*/}
             </div>
         )
