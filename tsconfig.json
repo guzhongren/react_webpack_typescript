@@ -3,11 +3,12 @@
         "outDir": "./dist/",
         "allowSyntheticDefaultImports": true,
         "sourceMap": true,
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "module": "commonjs",
         "target": "es5",
         "jsx": "react",
-        "skipDefaultLibCheck": true
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": true
     },
     "include": [
         "./src/**/*"

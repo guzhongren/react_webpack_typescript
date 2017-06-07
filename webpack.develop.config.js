@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 var isDevBuild = process.argv.indexOf('--env.prod') < 0;
-// var UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 module.exports = {
     context: path.resolve(__dirname, 'src'),
@@ -11,13 +10,11 @@ module.exports = {
     output: {
         filename: "bundle.js",
         path: path.resolve(__dirname + "/wwwroot/dist/js"),
-        publicPath: '/wwwroot',
-
-        // libraryTarget: 'amd' //编译ags api
+        publicPath: '/wwwroot'
     },
 
     // Enable sourcemaps for debugging webpack's output.
-    devtool: isDevBuild?"cheap-module-eval-source-map":null,
+    devtool: "cheap-module-eval-source-map",
     devServer: {
         // 指定启动服务的更目录
         contentBase: path.resolve(__dirname, "wwwroot"),
@@ -49,7 +46,7 @@ module.exports = {
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader?modules',],
+                use: ['style-loader', 'css-loader'],
             },
             // fonts
             {
@@ -74,13 +71,16 @@ module.exports = {
             /^dijit/.test(request) ||
             /^esri/.test(request)
         ) {
-            return callback(null, "amd " + request);
-            // return callback(null, "dojo.require('" + request + "')");
+            // return callback(null, "amd " + request);
+            return callback(null, "dojo.require('" + request + "')");
         }
         callback();
     }
     ],
     plugins: [
+        new webpack.ProvidePlugin({
+            $: 'jquery', jQuery: 'jquery'
+        }),
         // new webpack.DefinePlugin({
         //     'process.env.NODE.ENV': "development" //production
         // }),

@@ -23,20 +23,20 @@
         "no-null-keyword": true,
         "no-switch-case-fall-through": true,
         "no-trailing-whitespace": [false, "ignore-template-strings"],
-        "no-type-assertion-whitespace": true,
-        "no-var-keyword": true,
+        "no-type-assertion-whitespace": false,
+        "no-var-keyword": false,
         "object-literal-surrounding-space": true,
         "one-line": [false,
             "check-open-brace",
             "check-whitespace"
         ],
         "prefer-const": false,
-        "quotemark": [true,
+        "quotemark": [false,
             "double",
             "avoid-escape"
         ],
         "semicolon": [false, "never", "ignore-bound-class-methods"],
-        "triple-equals": true,
+        "triple-equals": false,
         "type-operator-spacing": false,
         "typedef-whitespace": [
             false,
@@ -55,7 +55,7 @@
                 "variable-declaration": "onespace"
             }
         ],
-        "whitespace": [true,
+        "whitespace": [false,
             "check-branch",
             "check-decl",
             "check-operator",
