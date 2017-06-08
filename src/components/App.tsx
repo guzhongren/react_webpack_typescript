@@ -25,7 +25,7 @@ export class App extends React.Component<AppProps, undefined> {
                 {/*<Button onClick={this.handleOnclick.bind(this)}>antd Test</Button>*/}
 
                 {/*react-bootstrap*/}
-                {/*<igm src={require<string>("")} />*/}
+                <igm src={require<string>("")} />
                 <ButtonGroup>
                     <Button color="primary">Left</Button>{' '}
                     <Button color="secondary">Middle</Button>{' '}
