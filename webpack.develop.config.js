@@ -3,9 +3,9 @@ const webpack = require('webpack');
 var isDevBuild = process.argv.indexOf('--env.prod') < 0;
 var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 module.exports = {
-    context: path.resolve(__dirname, 'src'),
+    context: path.resolve(__dirname, 'web'),
     entry: [
-        path.resolve(__dirname, "./src/index.tsx")
+        path.resolve(__dirname, "./web/index.tsx")
     ],
     output: {
         filename: "bundle.js",

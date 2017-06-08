@@ -3,12 +3,12 @@ import $ = require("jquery");
 // antd Test
 // import { Button } from "antd";
 import { Button, ButtonGroup } from 'reactstrap';
-import { EsriMapExt } from "./map";
-export interface AppProps { compiler: string; framework: string; }
+import { EsriMapExt } from "../map";
+export interface IndexProps { compiler: string; framework: string; }
 
 // 'HelloProps' describes the shape of props.
 // State is never set so we use the 'undefined' type.
-export class App extends React.Component<AppProps, undefined> {
+export class Home1 extends React.Component<IndexProps, undefined> {
 
     componentDidMount() {
         // jquery 测试
@@ -25,7 +25,7 @@ export class App extends React.Component<AppProps, undefined> {
                 {/*<Button onClick={this.handleOnclick.bind(this)}>antd Test</Button>*/}
 
                 {/*react-bootstrap*/}
-                <igm src={require<string>("")} />
+                {/*<igm src={require<string>("")} />*/}
                 <ButtonGroup>
                     <Button color="primary">Left</Button>{' '}
                     <Button color="secondary">Middle</Button>{' '}
