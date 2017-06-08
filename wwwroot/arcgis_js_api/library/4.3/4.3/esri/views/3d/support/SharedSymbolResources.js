@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define("require exports dojo/io-query ./TextureCollection ./ResourceController ../../../identity/IdentityManager".split(" "),function(l,m,f,g,h,k){return function(){function e(b,a){var d=this;this.streamDataSupplier=this.textures=null;this.tokens={};var c=h.ClientType.SYMBOLOGY;this.resourceController=a;this.streamDataSupplier=a.registerClient(this,c,{addUrlToken:function(a){return d.addUrlToken(a)}});this.textures=new g(this.streamDataSupplier,b,{wrapClamp:!0})}e.prototype.destroy=function(){this.resourceController.deregisterClient(this);
+this.streamDataSupplier=this.textures=null};e.prototype.addUrlToken=function(b){if(0===b.indexOf("data:"))return b;var a=b.match(/^(((?:https?:)?\/\/[^\/]+).*?)(?:\?(.*))?$/);if(!a)return b;var d=a[1],c=a[2],a=f.queryToObject(a[3]||"");"token"in a||(null==this.tokens[c]&&(b=k.findCredential(b),this.tokens[c]=b&&b.token||""),this.tokens[c]&&(a.token=this.tokens[c]));return(c=f.objectToQuery(a))?d+"?"+c:d};return e}()});

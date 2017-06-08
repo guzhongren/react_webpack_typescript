@@ -1,0 +1,4 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["../../core/lang","./Domain","dojo/_base/array","dojo/_base/lang"],function(d,e,f,g){return e.createSubclass({declaredClass:"esri.layers.support.CodedValueDomain",properties:{codedValues:{value:null},type:{value:"coded-value"}},getName:function(a){var b;f.some(this.codedValues,function(c){c.code==a&&(b=c.name);return!!b});return b},toJSON:function(){var a=this.inherited(arguments);a.codedValues=g.clone(this.codedValues);return d.fixJson(a)}})});

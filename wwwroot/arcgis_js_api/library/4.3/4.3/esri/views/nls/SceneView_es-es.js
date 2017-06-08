@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define({"esri/widgets/Popup/nls/Popup":{zoom:"Acercar a",next:"Entidad siguiente",previous:"Entidad anterior",close:"Cerrar",dock:"Acoplar",undock:"Desacoplar",menu:"Men\u00fa",untitled:"Sin t\u00edtulo",pageText:"{index} de {total}",noFeaturesFound:"No se ha encontrado ninguna entidad",selectedFeature:"Entidad seleccionada",selectedFeatures:"{total} resultados",loading:"Cargando",_localized:{}},"esri/widgets/Popup/nls/PopupRenderer":{attach:"Adjuntos",fields:"Campos",fieldsSummary:"Lista de atributos y valores",
+media:"Medios",next:"Siguiente",numCharts:"N\u00famero de gr\u00e1ficos",numImages:"N\u00famero de im\u00e1genes",noTitle:"Sin T\u00edtulo",previous:"Anterior",view:"Vista",_localized:{}},"esri/widgets/Spinner/nls/Spinner":{searching:"Buscando",_localized:{}},"esri/widgets/Compass/nls/Compass":{reset:"Restablecer orientaci\u00f3n de br\u00fajula",_localized:{}},"esri/widgets/Zoom/nls/Zoom":{zoomIn:"Acercar",zoomOut:"Alejar",_localized:{}},"esri/widgets/NavigationToggle/nls/NavigationToggle":{toggle:"Alternar desplazamiento panor\u00e1mico y rotaci\u00f3n en 3D",
+_localized:{}}});

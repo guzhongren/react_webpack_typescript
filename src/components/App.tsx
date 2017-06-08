@@ -3,7 +3,7 @@ import $ = require("jquery");
 // antd Test
 // import { Button } from "antd";
 import { Button, ButtonGroup } from 'reactstrap';
-// import {AppMain} from "./map";
+import { EsriMapExt } from "./map";
 export interface AppProps { compiler: string; framework: string; }
 
 // 'HelloProps' describes the shape of props.
@@ -19,18 +19,19 @@ export class App extends React.Component<AppProps, undefined> {
     }
     render() {
         return (
-            <div>
+            <div style={{width:"100%",  height:"100%"}}>
                 <h1 id="test">Hello from {this.props.compiler} and {this.props.framework}</h1>
                 {/*antd*/}
                 {/*<Button onClick={this.handleOnclick.bind(this)}>antd Test</Button>*/}
-                
+
                 {/*react-bootstrap*/}
+                {/*<igm src={require<string>("")} />*/}
                 <ButtonGroup>
                     <Button color="primary">Left</Button>{' '}
                     <Button color="secondary">Middle</Button>{' '}
                     <Button color="success">Right</Button>
                 </ButtonGroup>
-                {/*<AppMain/>*/}
+                <EsriMapExt />
             </div>
         )
     }

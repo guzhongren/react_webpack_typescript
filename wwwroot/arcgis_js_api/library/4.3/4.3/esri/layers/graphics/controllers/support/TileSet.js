@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../../../geometry/Extent"],function(l,m,g){return function(){function b(a){this.layer=a.layer;this.tileInfo=a.tileInfo}b.prototype.fetch=function(a){return this._queryTile(a)};b.prototype._queryTile=function(a){return this.layer.queryFeatures(this._createQuery(a))};b.prototype._createQuery=function(a){this.tileInfo.updateTileInfo(a);var f=this.tileInfo.spatialReference,c=a.extent,b=c[0],h=c[1],k=c[2],c=c[3],d=this.layer.createQuery();d.geometry=new g({xmin:b,ymin:h,
+xmax:k,ymax:c,spatialReference:f});d.outSpatialReference=f;this._setResolutionParams(d,a);return d};b.prototype._setResolutionParams=function(a,b){var c=this.layer,e=c.geometryType;if("polyline"===e||"polygon"===e)b=this.tileInfo.lodAt(b.level).resolution,"polyline"===e&&(a.maxAllowableOffset=b),c.supportsCoordinatesQuantization&&(a.quantizationParameters={mode:"view",originPosition:"upperLeft",tolerance:b,extent:c.fullExtent})};return b}()});

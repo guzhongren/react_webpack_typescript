@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport/decorateHelper ./Symbol3DLayer ../core/accessorSupport/decorators".split(" "),function(b,g,e,c,f,a){b=d=function(b){function a(a){a=b.call(this)||this;a.type="Extrude";a.size=void 0;a.material=null;return a}e(a,b);a.prototype.clone=function(){return new d({enabled:this.enabled,material:this.material&&this.material.clone(),size:this.size})};return a}(a.declared(f));c([a.property()],b.prototype,"type",void 0);c([a.property({json:{write:!0}})],
+b.prototype,"size",void 0);c([a.property()],b.prototype,"material",void 0);b=d=c([a.subclass("esri.symbols.ExtrudeSymbol3DLayer")],b);var d;return b});

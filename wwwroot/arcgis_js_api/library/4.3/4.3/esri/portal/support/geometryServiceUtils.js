@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define("require exports ../Portal ../PortalItem ../../config ../../tasks/GeometryService ../../core/promiseUtils ../../core/Error".split(" "),function(l,h,d,k,e,f,b,g){h.create=function(a){void 0===a&&(a=null);if(e.geometryServiceUrl)return b.resolve(new f({url:e.geometryServiceUrl}));if(!a)return b.reject(new g("internal:geometry-service-url-not-configured"));var c;a.isInstanceOf(k)?c=a.portal||d.getDefault():a.isInstanceOf(d)&&(c=a);return c.load().then(function(a){if(a.helperServices&&a.helperServices.geometry&&
+a.helperServices.geometry.url)return b.resolve(new f({url:a.helperServices.geometry.url}));throw new g("internal:geometry-service-url-not-configured");})}});

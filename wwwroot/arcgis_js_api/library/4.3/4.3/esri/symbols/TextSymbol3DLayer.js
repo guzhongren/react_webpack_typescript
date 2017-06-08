@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport/decorateHelper dojo/_base/lang ../core/screenUtils ./Symbol3DLayer ../core/accessorSupport/decorators".split(" "),function(b,k,f,c,e,g,h,a){b=d=function(b){function a(a){a=b.call(this)||this;a.font=null;a.material=null;a.size=void 0;a.text=void 0;a.type="Text";return a}f(a,b);a.prototype.writeFont=function(a,b){a&&(b.font=e.clone(a))};a.prototype.clone=function(){return new d({enabled:this.enabled,font:this.font&&e.clone(this.font),
+material:this.material&&this.material.clone(),size:this.size,text:this.text})};return a}(a.declared(h));c([a.property()],b.prototype,"font",void 0);c([a.writer("font")],b.prototype,"writeFont",null);c([a.property()],b.prototype,"material",void 0);c([a.property({json:{write:!0}}),a.cast(g.toPt)],b.prototype,"size",void 0);c([a.property({json:{write:!0}})],b.prototype,"text",void 0);c([a.property()],b.prototype,"type",void 0);b=d=c([a.subclass("esri.symbols.TextSymbol3DLayer")],b);var d;return b});

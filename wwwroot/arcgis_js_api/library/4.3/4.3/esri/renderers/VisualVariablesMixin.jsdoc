@@ -1,0 +1,200 @@
+/**
+* @module esri/renderers/VisualVariablesMixin
+* @mixin
+*/
+
+
+
+
+////////////////////////////////////////////////////////////
+//
+// Properties
+//
+////////////////////////////////////////////////////////////
+
+/**
+* Visual variables define the parameters
+* for data-driven geographic visualizations of numeric data. They allow you to
+* easily map continuous ramps of {@link module:esri/renderers/Renderer~ColorVisualVariable color}, {@link module:esri/renderers/Renderer~SizeVisualVariable size},
+* {@link module:esri/renderers/Renderer~OpacityVisualVariable opacity}, and/or {@link module:esri/renderers/Renderer~RotationVisualVariable rotation} to minimum and maximum data values
+* of one of the layer's numeric attribute fields.
+*
+* Visual variables can primarily be used in two ways.
+*
+* #### 1. Thematic mapping
+*
+* Visual variables allow you to easily create stunning visualizations
+* based on thematic attributes (e.g. population, education, rank, money, magnitude, etc.) in
+* either 2D or 3D. This is accomplished by mapping data values from a numeric field attribute
+* to color, size, and/or opacity values.
+* The renderer then takes over and re-sizes or shades features based on the value of the given
+* field and its position relative to the minimum and maximum values. The sample below uses
+* three visual variables (size, color, and opacity).
+*
+* [![renderer-unique-vv](../assets/img/apiref/renderers/renderer-unique-vv.png)](../sample-code/visualization-multivariate-2d/index.html)
+*
+* #### 2. Mapping real-world sizes
+*
+* The {@link module:esri/renderers/Renderer~SizeVisualVariable size} visual variable can be used to
+* visualize the true sizes of features (e.g. tree canopy, road width, building height, etc.)
+* based on their size in the real world. This can be particularly powerful when working in a 3D
+* {@link module:esri/views/SceneView}. The image below shows a layer of building footprints
+* that uses visual variables to extrude each feature to the true height of the buildings
+* based on data stored in an attribute field.
+*
+* [![renderer-vv-rw](../assets/img/samples/2-extrude-height.png)](../sample-code/visualization-buildings-3d/index.html)
+*
+* The `visualVariables` property of the renderer is an array of objects called "visual variables".
+* Each object must indicate
+* the type of visual variable to apply (e.g. color, size, opacity, rotation), the numeric
+* field from which to drive the visualization, and the ramp of visual values to map to the data.
+* The following list identifies each visual variable type and provides a link to the specification table
+* of each.
+*
+* Type | Object Specification | Legend Example
+* -----|----------------------|---------------
+* color | {@link module:esri/renderers/Renderer~ColorVisualVariable ColorVisualVariable} | ![legend-color-vv](../assets/img/apiref/renderers/legend-color-vv.png)
+* size | {@link module:esri/renderers/Renderer~SizeVisualVariable SizeVisualVariable} | ![legend-color-vv](../assets/img/apiref/renderers/legend-size-vv.png)
+* opacity | {@link module:esri/renderers/Renderer~OpacityVisualVariable OpacityVisualVariable} | ![legend-color-vv](../assets/img/apiref/renderers/legend-opacity-vv.png)
+* rotation | {@link module:esri/renderers/Renderer~RotationVisualVariable RotationVisualVariable} | -
+*
+* See the [Visualize features with realistic 3D symbols](../sample-code/visualization-trees-realistic/index.html)
+* for an example of using multiple visual variables to visualize your data.
+*
+* @name visualVariables
+* @memberof module:esri/renderers/VisualVariablesMixin
+* @type {Object[]}
+*
+* @see [Creating visualizations manually](../guide/creating-visualizations-manually/index.html)
+* @see [Get started with visualization](../guide/get-started-visualization/index.html)
+*/
+
+
+
+
+
+////////////////////////////////////////////////////////////
+//
+// Public methods
+//
+////////////////////////////////////////////////////////////
+
+
+
+/**
+* Indicates if the renderer has defined [visualVariables](#visualVariables).
+*
+* @method hasVisualVariables
+* @memberof module:esri/renderers/VisualVariablesMixin
+* @ignore
+*
+* @param   {string} type - can be one of: size, color, opacity, rotation (optional)
+* @param   {(Object|boolean)} target - can be: false or "outline" (optional)
+* @return {boolean} If `true`, then the renderer has at least one visual variable.
+*/
+
+
+
+
+
+
+
+/**
+* Returns the visual variables of the specified type.
+*
+* @method getVisualVariablesForType
+* @memberof module:esri/renderers/VisualVariablesMixin
+* @ignore
+*
+* @param {string} type - The type of visual variables desired.
+*                        <br><br>**Known Values:** color | size | opacity | rotation
+* @return {Object[]} Returns the visual variables associated with the input `type`.
+*
+* @see [visualVariables](#visualVariables)
+* @example
+* var colorVisVars = renderer.getVisualVariablesForType("color");
+*/
+
+
+
+
+
+
+/**
+* Returns the symbol size (in pixels) for the input graphic.
+*
+* @method getSize
+* @memberof module:esri/renderers/VisualVariablesMixin
+* @ignore
+*
+* @param {module:esri/Graphic} graphic - The graphic for which you want
+* to calculate the symbol size.
+*
+* @return {number} The size of the input graphic's symbol in pixels.
+*/
+
+
+
+
+
+
+/**
+* Returns the color of the symbol used to render the input Graphic.
+*
+* @method getColor
+* @memberof module:esri/renderers/VisualVariablesMixin
+* @ignore
+*
+* @param {module:esri/Graphic} graphic - The graphic from which to get the symbol's color.
+*
+* @return {module:esri/Color} The color used in rendering the input graphic.
+*/
+
+
+
+
+
+/**
+* Returns the opacity value for the specified graphic.
+*
+* @method getOpacity
+* @memberof module:esri/renderers/VisualVariablesMixin
+* @ignore
+*
+* @param {module:esri/Graphic} graphic - The graphic from which to get an opacity value.
+*
+* @return {number} The opacity value of the input graphic.
+*/
+
+
+
+
+
+
+/**
+* Returns the rotation angle used in rendering the input graphic.
+*
+* @method getRotationAngle
+* @memberof module:esri/renderers/VisualVariablesMixin
+* @ignore
+*
+* @param {module:esri/Graphic} graphic - The graphic from which to get a rotation value.
+*
+* @return {number} The rotation angle of the symbol used to render the input graphic.
+*/
+
+
+
+
+
+/**
+* Returns the symbol used by the input graphic.
+*
+* @method getSymbol
+* @memberof module:esri/renderers/VisualVariablesMixin
+* @ignore
+*
+* @param {module:esri/Graphic} graphic - A graphic from which to get a symbol.
+*
+* @return {module:esri/symbols/Symbol} Returns the symbol used to render the input graphic.
+*/

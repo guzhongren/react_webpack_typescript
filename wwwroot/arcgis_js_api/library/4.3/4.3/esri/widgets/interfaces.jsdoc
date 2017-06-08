@@ -1,0 +1,91 @@
+/**
+ * @module esri/widgets/interfaces
+ */
+
+//--------------------------------------------------------------------------
+//
+//  Virtual jsdoc
+//
+//--------------------------------------------------------------------------
+
+/**
+ * @name Axes
+ * @memberof module:esri/widgets/interfaces
+ * @type {object}
+ *
+ * @property {number} [x]
+ * @property {number} [y]
+ * @property {number} [z]
+ */
+
+/**
+ * @name SearchResult
+ * @memberof module:esri/widgets/interfaces
+ * @type {object}
+ *
+ * @property {module:esri/geometry/Extent} extent
+ * @property {module:esri/Graphic} feature
+ * @property {string} name
+ */
+
+/**
+ * @name SearchResults
+ * @memberof module:esri/widgets/interfaces
+ * @type {object}
+ *
+ * @property {module:esri/widgets/interfaces/SearchResult[]} results
+ * @property {object} source
+ * @property {number} sourceIndex
+ */
+
+/**
+ * @name SuggestResult
+ * @memberof module:esri/widgets/interfaces
+ * @type {object}
+ *
+ * @property {string} text
+ * @property {string} magicKey
+ * @property {number} sourceIndex
+ */
+
+/**
+ * @name SuggestResults
+ * @memberof module:esri/widgets/interfaces
+ * @type {object}
+ *
+ * @property {module:esri/widgets/interfaces/SuggestResult[]} results
+ * @property {object} source
+ * @property {number} sourceIndex
+ */
+
+/**
+ * @name Results
+ * @memberof module:esri/widgets/interfaces
+ * @type {object}
+ *
+ * @property {number} activeSourceIndex
+ * @property {string} searchTerm
+ * @property {number} numResults
+ * @property {number} numErrors
+ * @property {Error[]} errors
+ * @property {module:esri/widgets/interfaces/SearchResults | module:esri/widgets/interfaces/SuggestResults} results
+ */
+
+/**
+ * @name ScaleBarProperties
+ * @memberof module:esri/widgets/interfaces
+ * @type {object}
+ *
+ * @property {number} length
+ * @property {number} value
+ * @property {string} unit
+ */
+
+/**
+ * @name Bounds
+ * @memberof module:esri/widgets/interfaces
+ * @type {object}
+ *
+ * @property {number} max
+ * @property {number} min
+ */

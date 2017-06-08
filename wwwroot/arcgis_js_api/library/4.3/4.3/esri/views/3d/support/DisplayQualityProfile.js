@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../../core/sniff"],function(f,g,d){var e={low:{sceneService:{"3dObject":{lodFactor:.2},point:{lodFactor:1},integratedMesh:{lodFactor:.6},pointCloud:{lodFactor:.5}},tiledSurface:{lodBias:-1,angledSplitBias:.5},antialiasingEnabled:!1},high:{sceneService:{"3dObject":{lodFactor:1},point:{lodFactor:1},integratedMesh:{lodFactor:1},pointCloud:{lodFactor:1}},tiledSurface:{lodBias:0,angledSplitBias:1},antialiasingEnabled:!0}};return function(){function c(){}c.isValidProfile=
+function(a){return a in e};c.getDefaultProfile=function(){return d("trident")||d("safari")?"low":"high"};c.apply=function(a,b){a=e[a];b.qualitySettings.sceneService["3dObject"].lodFactor=a.sceneService["3dObject"].lodFactor;b.qualitySettings.sceneService.point.lodFactor=a.sceneService.point.lodFactor;b.qualitySettings.sceneService.integratedMesh.lodFactor=a.sceneService.integratedMesh.lodFactor;b.qualitySettings.sceneService.pointCloud.lodFactor=a.sceneService.pointCloud.lodFactor;b.qualitySettings.tiledSurface.lodBias=
+a.tiledSurface.lodBias;b.qualitySettings.tiledSurface.angledSplitBias=a.tiledSurface.angledSplitBias;b.qualitySettings.antialiasingEnabled=a.antialiasingEnabled};return c}()});

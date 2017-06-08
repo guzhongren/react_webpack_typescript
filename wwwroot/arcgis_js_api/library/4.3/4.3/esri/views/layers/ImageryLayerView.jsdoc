@@ -1,0 +1,62 @@
+/**
+* Represents the {@link module:esri/views/layers/LayerView} of an {@link module:esri/layers/ImageryLayer}
+* after it has been added to a {@link module:esri/Map} in either a {@link module:esri/views/MapView} or
+* {@link module:esri/views/SceneView}.
+*
+* The ImageryLayerView is responsible for rendering [pixelData](#pixelData) in the
+* {@link module:esri/views/View}. Pixel values can be manipulated to add color to an
+* {@link module:esri/layers/ImageryLayer}.
+*
+* @module esri/views/layers/ImageryLayerView
+* @noconstructor
+*
+* @since 4.0
+* @see module:esri/layers/ImageryLayer
+* @see [Sample - Access pixel values in an ImageryLayer](../sample-code/layers-imagery-pixelvalues/index.html)
+*/
+
+
+
+////////////////////////////////////////////////////////////
+//
+// Constructor
+//
+////////////////////////////////////////////////////////////
+
+
+
+/**
+ * @extends module:esri/views/layers/LayerView
+ * @constructor module:esri/views/layers/ImageryLayerView
+ * @param {Object} [properties] - See the [properties](#properties-summary) for a list of all the properties
+ *                            that may be passed into the constructor.
+ */
+
+
+////////////////////////////////////////////////////////////
+//
+// Properties
+//
+////////////////////////////////////////////////////////////
+
+
+
+ /**
+ * An object that provides the user access to
+ * {@link module:esri/layers/support/PixelBlock#pixels pixels} and their values in the layer.
+ * See the object specifications table below for details about each property. This object
+ * is used as input in the {@link module:esri/layers/ImageryLayer#pixelFilter pixelFilter()} function
+ * for filtering and processing each pixel in the block.
+ *
+ * @property {module:esri/geometry/Extent} extent - The extent of the `pixelBlock`.
+ * @property {module:esri/layers/support/PixelBlock} pixelBlock - An object representing
+ * the pixels in the view. This provides the user access to each pixel on the client via the
+ * `pixels` property of this object.
+ *
+ * @name pixelData
+ * @type {Object}
+ * @instance
+ *
+ * @see [Sample - Access pixel values in an ImageryLayer](../sample-code/layers-imagery-pixelvalues/index.html)
+ *
+ */

@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define("require exports ../../core/tsSupport/extendsHelper ../../core/tsSupport/decorateHelper ../../core/typescript ./errorMessages ./ExtensionBase ./messageHandler".split(" "),function(b,l,g,d,e,h,k,f){b=function(b){function c(a){a=b.call(this)||this;a.config=null;return a}g(c,b);c.prototype._setConfig=function(a){this.config=a||{}};c.prototype.__messageReceived=function(a){if("updateconfig"===a.functionName.toLowerCase())return a.args={configuration:this.config},f._sendMessage(a);this.inherited(arguments)};
+c.prototype.readyToPersistConfig=function(a){if(!this._isHostInitialized())throw Error(h.hostNotReady);f._sendMessage({functionName:"readyToPersistConfig",args:{canAccept:a}})};return c}(k);d([e.shared("esri.opsdashboard.ExtensionConfigurationBase")],b.prototype,"declaredClass",void 0);return b=d([e.subclass()],b)});

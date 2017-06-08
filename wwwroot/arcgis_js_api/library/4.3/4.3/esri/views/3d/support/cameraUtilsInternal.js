@@ -1,0 +1,4 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["./mathUtils","../lib/glMatrix"],function(f,m){var a=m.vec3d,n=a.create(),g=a.create();return{directionToHeadingTilt:function(d,c,h,e,k){var b=n;a.normalize(d,b);var l=Math.abs(a.dot(b,e));.99<l&&(l=Math.abs(a.dot(c,e)),.99>l?a.set(c,b):b=null);c=0;b&&(a.scale(e,a.dot(e,b),g),a.subtract(b,g),c=a.dot(b,k)/(a.length(b)*a.length(k)),a.cross(b,k,g),c=(0<a.dot(g,e)?1:-1)*f.rad2deg(f.acos(c)));d=f.rad2deg(f.acos(-a.dot(e,d)/a.length(d)));return h?(h.heading=c,h.tilt=d,h):{heading:c,tilt:d}}}});

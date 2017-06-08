@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["./TileAgentBase","./TerrainConst","./UpsampleInfo","../../../core/ObjectPool"],function(b,d,e,g){var a=function(){b.apply(this,arguments)};a.prototype=new b;a.prototype.constructor=a;a.prototype.dataArrived=function(a){a!==this.tile?this._setUpsamplingTile(a):this.updateGeometry();this._dataRequested=null;this._requestNext()};a.prototype.updateGeometry=function(){this._tileLayerInfo.pendingUpdates|=d.TileUpdateTypes.UPDATE_GEOMETRY;this.tile.updateGeometry()};a.prototype._findAncestorWithData=
+function(){for(var a=this.layerClass,h=this.layerIdx,c=this.tile,b=c.vlevel,f;c&&!(c.layerInfo[a][h].data&&(f=c,b-c.lij[0]>=d.ELEVATION_DESIRED_RESOLUTION_LEVEL));)c=c.parent;return f?(a=e.Pool.acquire(),a.init(f,0,0,1),a):null};a.prototype._desiredMinLevelDelta=function(){return d.ELEVATION_DESIRED_RESOLUTION_LEVEL-(this.tile.vlevel-this.tile.lij[0])};a.prototype.START_LOADING_LEVEL_DELTA=4;a.prototype.SCALE_RANGE_ENABLED=!1;a.prototype._setUpsamplingTile=function(a){this._tileLayerInfo.upsampleFromTile&&
+e.Pool.release(this._tileLayerInfo.upsampleFromTile);var b=e.Pool.acquire();b.init(a,0,0,1);this._tileLayerInfo.upsampleFromTile=b;this.updateGeometry()};a.Pool=new g(a);return a});

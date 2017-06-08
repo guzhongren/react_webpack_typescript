@@ -1,0 +1,2 @@
+/*! ArcGIS API for JavaScript 4.3 | Copyright (c) 2017 Esri. All rights reserved. | http://www.esri.com/legal/privacy | https://developers.arcgis.com/terms/faq */
+define(["dojo/_base/declare","dijit/_TemplatedMixin","dojo/_base/lang","Quoin/Handlebars"],function(e,i,n,a){return e("Quoin.HandlebarsTemplated",i,{_skipNodeCache:!0,_stringRepl:function(e){var i=a.compile(e);return n.trim(i(this))}})});

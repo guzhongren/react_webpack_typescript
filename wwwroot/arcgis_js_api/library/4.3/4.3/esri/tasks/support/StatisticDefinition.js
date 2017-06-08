@@ -1,0 +1,4 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["../../core/Accessor"],function(a){return a.createSubclass({declaredClass:"esri.tasks.support.StatisticDefinition",properties:{maxPointCount:null,maxRecordCount:null,maxVertexCount:null,onStatisticField:null,outStatisticFieldName:null,statisticType:null},toJSON:function(){return{statisticType:this.statisticType,onStatisticField:this.onStatisticField,outStatisticFieldName:this.outStatisticFieldName,maxPointCount:this.maxPointCount,maxRecordCount:this.maxRecordCount,maxVertexCount:this.maxVertexCount}}})});

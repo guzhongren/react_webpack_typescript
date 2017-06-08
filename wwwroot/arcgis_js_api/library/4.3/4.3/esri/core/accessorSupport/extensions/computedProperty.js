@@ -1,0 +1,4 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["require","exports","dojo/has","../utils","../wire"],function(h,a,k,f,g){a.ComputedPropertyExtension={processClassPropertyMetadata:function(a,b,d,c){b.dependsOn&&(b.wire=g.create(b.dependsOn,function(b){return f.getProperties(b).propertyInvalidated(a)}))},instanceCreated:function(a,b,d){for(var c=0;c<d.length;c++){var e=b[d[c]];e.wire&&e.wire(a)}}};Object.defineProperty(a,"__esModule",{value:!0});a.default=a.ComputedPropertyExtension});

@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport/decorateHelper ../core/accessorSupport/decorators ../core/Error ../core/JSONSupport".split(" "),function(b,g,d,c,a,e,f){b=function(b){function a(a){a=b.call(this)||this;a.created=null;a.id=null;a.portal=null;a.title=null;a.username=null;return a}d(a,b);Object.defineProperty(a.prototype,"url",{get:function(){var a=this.get("portal.restUrl");return a?a+"/content/users/"+this.username+"/"+this.id:null},enumerable:!0,configurable:!0});
+a.prototype.toJSON=function(){throw new e("internal:not-yet-implemented","PortalFolder.toJSON is not yet implemented");};return a}(a.declared(f));c([a.property({type:Date})],b.prototype,"created",void 0);c([a.property()],b.prototype,"id",void 0);c([a.property()],b.prototype,"portal",void 0);c([a.property()],b.prototype,"title",void 0);c([a.property({dependsOn:["portal.restUrl"],readOnly:!0})],b.prototype,"url",null);c([a.property()],b.prototype,"username",void 0);return b=c([a.subclass("esri.portal.PortalFolder")],
+b)});

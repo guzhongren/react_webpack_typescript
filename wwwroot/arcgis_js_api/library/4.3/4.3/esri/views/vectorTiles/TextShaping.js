@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["require","exports","./Placement"],function(u,v,t){return function(){function p(a,d,f,c,k,l,b,h){this._glyphItems=a;this._maxWidth=d;this._lineHeight=f;this._letterSpacing=c;this._offset=k;this._hAnchor=l;this._vAnchor=b;this._justify=h}p.prototype.getShaping=function(a,d){for(var f=this._glyphItems,c=this._letterSpacing,k=this._offset[0],l=this._offset[1],b=[],h=a.length,e=0;e<h;e++){var q=a.charCodeAt(e),g=f[q];g&&(b.push(new t.ShapedGlyph(q,k,l)),k+=g.metrics.advance+c)}if(0<b.length){q=
+this._maxWidth;a=this._lineHeight;c=this._justify;k=b.length;h=l=f=0;if(0!==q)for(var p=g=0,e=0;e<k;e++){var m=b[e];m.x-=p;m.y=d?m.y-a*f:m.y+a*f;if(m.x>q&&0<g){for(var r=b[g+1].x,h=Math.max(r,h),n=g+1;n<=e;n++)b[n].y=d?b[n].y-a:b[n].y+a,b[n].x-=r;c&&this._applyJustification(b,l,g-1);l=g+1;g=0;p+=r;f++}32===m.glyph&&(g=e)}e=b[k-1];h=Math.max(h,e.x+this._glyphItems[e.glyph].metrics.advance);c&&this._applyJustification(b,l,k-1);e=(c-this._hAnchor)*h;c=(-this._vAnchor*(f+1)+.5)*a;d&&f&&(c+=f*a);for(d=
+0;d<b.length;d++)a=b[d],a.x+=e,a.y+=c}return b};p.prototype._applyJustification=function(a,d,f){for(var c=a[f],c=(c.x+this._glyphItems[c.glyph].metrics.advance)*this._justify;d<=f;d++)a[d].x-=c};return p}()});

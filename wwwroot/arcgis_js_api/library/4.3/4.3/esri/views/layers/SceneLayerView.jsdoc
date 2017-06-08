@@ -1,0 +1,267 @@
+/**
+* Represents the {@link module:esri/views/layers/LayerView} of a {@link module:esri/layers/SceneLayer}
+* after it has been added to a {@link module:esri/Map} in a {@link module:esri/views/SceneView}.
+*
+* The SceneLayerView is responsible for streaming and rendering a {@link module:esri/layers/SceneLayer SceneLayer's}
+* features in the {@link module:esri/views/SceneView}. The [methods](#methods-summary)
+* in the SceneLayerView provide developers with the ability to query visible features. See the
+* code snippets in the [methods](#methods-summary) below for examples of how to access client-side graphics from the
+* view.
+*
+* Features in a {@link module:esri/layers/SceneLayer} are loaded progressively,
+* starting from coarse representations that are refined to higher levels of detail as
+* necessary for close-up views. Queries on the SceneLayerView will be executed against features
+* that have been loaded and are in view of the camera at the current level of detail. As a result the query methods on the SceneLayerView
+* should not be used when the intention is to query or search within the whole dataset, instead the query methods on the SceneLayer should be used
+* To only execute a query once the loading of visible features has completed, applications
+* can wait until the [updating](#updating) property of the SceneLayerView is false.
+* At lower levels of detail, features may be omitted from rendering by the SceneLayerView,
+* and will therefore not be included in the results of queries.
+*
+* @module esri/views/layers/SceneLayerView
+* @noconstructor
+*
+* @since 4.3
+* @see module:esri/layers/SceneLayer
+*/
+
+
+
+////////////////////////////////////////////////////////////
+//
+// Constructor
+//
+////////////////////////////////////////////////////////////
+
+
+
+/**
+ * @extends module:esri/views/layers/LayerView
+ * @constructor module:esri/views/layers/SceneLayerView
+ * @param {Object} [properties] - See the [properties](#properties-summary) for a list of all the properties
+ *                            that may be passed into the constructor.
+ */
+
+
+////////////////////////////////////////////////////////////
+//
+// Methods
+//
+////////////////////////////////////////////////////////////
+
+
+
+/**
+ * Executes a {@link module:esri/tasks/support/Query} against features in the layer view that are visible to the camera
+ * and returns a {@link module:esri/tasks/support/FeatureSet}. If query parameters are not provided,
+ * all visible features are returned.
+ *
+ * This method is not yet supported when the associated scene layer has a
+ * {@link module:esri/layers/SceneLayer#geometryType geometryType} of `point`.
+ *
+ * ::: esri-md class="panel trailer-1"
+ * To execute a query against all the features in a Scene Service rather than only those visible in the view,
+ * you must use the {@link module:esri/layers/SceneLayer#queryFeatures SceneLayer.queryFeatures()}
+ * method.
+ * :::
+ *
+ * @param {module:esri/tasks/support/Query} [params] - Specifies the attributes of the query.
+ * Only the {@link module:esri/tasks/support/Query#outFields outFields} and
+ * {@link module:esri/tasks/support/Query#objectIds objectIds} properties should be
+ * specified. Adding any other properties will return an error. If query parameters are not provided,
+ * all visible features are returned.
+ *
+ * @return {Promise} When resolved, a {@link module:esri/tasks/support/FeatureSet} is returned.
+ * The set will be empty if zero results are found.
+ *
+ * @method queryFeatures
+ * @memberOf module:esri/views/layers/SceneLayerView
+ * @instance
+ * @beta
+ *
+ * @example
+ * var lyr = new SceneLayer({
+ *   url: ssUrl  // points to a Scene Service layer url
+ * });
+ *
+ * // returns visible features from the layer view that match the query
+ * var query = new Query();
+ * query.objectIds = [10, 125, 126, 200, 201];
+ * query.outFields = ["NAME", "STATE_ABBR", "POP04"];
+ *
+ * view.whenLayerView(lyr).then(function(lyrView){
+ *  watchUtils.whenNotOnce(lyrView, "updating")
+ *    .then(function() {
+ *      return lyrView.queryFeatures();
+ *    })
+ *    .then(function(result) {
+ *      console.log(result.features); // prints the client-side graphics to the console
+ *    });
+ * });
+ *
+ * @example
+ * var lyr = new SceneLayer({
+ *   url: ssUrl  // points to a Scene Service layer url
+ * });
+ *
+ * // returns all visible features from the layer view
+ * view.whenLayerView(lyr).then(function(lyrView){
+ *   lyrView.watch("updating", function(val){
+ *     if(!val){  // wait for the layer view to finish updating
+ *       lyrView.queryFeatures().then(function(result){
+ *         console.log(result.features);  // prints all visible client-side graphics to the console
+ *       });
+ *     }
+ *   });
+ * });
+ */
+
+
+
+
+
+
+
+/**
+ * Executes a {@link module:esri/tasks/support/Query} against features visible in
+ * the layer view and returns an array of the ObjectIDs of features that satisfy the input query. If
+ * query parameters are not provided, the ObjectIDs of all visible features are returned.
+ *
+ * This method is not yet supported when the associated scene layer has a
+ * {@link module:esri/layers/SceneLayer#geometryType geometryType} of `point`.
+ *
+ * ::: esri-md class="panel trailer-1"
+ * To query for ObjectIDs of features directly from a Scene Service rather than those
+ * visible in the view, you must
+ * use the {@link module:esri/layers/SceneLayer#queryObjectIds SceneLayer.queryObjectIds()}
+ * method.
+ * :::
+ *
+ * @param {module:esri/tasks/support/Query} [params] - Specifies the attributes of the query.
+ * Only the {@link module:esri/tasks/support/Query#objectIds objectIds} property should be
+ * specified. Adding any other properties will return an error. If query parameters are not provided,
+ * the ObjectIDs of all visible features are returned.
+ *
+ * @return {Promise} When resolved, returns an array of numbers representing the ObjectIDs of the features
+ *                   satisfying the query.
+ *
+ * @method queryObjectIds
+ * @memberOf module:esri/views/layers/SceneLayerView
+ * @instance
+ * @beta
+ *
+ * @example
+ * var lyr = new SceneLayer({
+ *   url: ssUrl  // points to a Scene Service layer url
+ * });
+ *
+ * // returns all the Ids from the features in the layer view
+ * view.whenLayerView(lyr).then(function(lyrView){
+ *   return lyrView.queryObjectIds();
+ * }).then(function(ids){
+ *   console.log(ids);  // prints the ids of all the client-side graphics to the console
+ * });
+ */
+
+
+
+
+
+
+
+/**
+ * Executes a {@link module:esri/tasks/support/Query} against features in the layer view that are visible to the camera
+ * and returns the number of features that satisfy the query. If query parameters are not provided,
+ * the count of all visible features is returned.
+ *
+ * This method is not yet supported when the associated scene layer has a
+ * {@link module:esri/layers/SceneLayer#geometryType geometryType} of `point`.
+ *
+ * ::: esri-md class="panel trailer-1"
+ * To query for the count of features directly from a Scene Service rather than those
+ * visible in the view, you must
+ * use the {@link module:esri/layers/SceneLayer#queryFeatureCount SceneLayer.queryFeatureCount()}
+ * method.
+ * :::
+ *
+ * @param {module:esri/tasks/support/Query} [params] - Specifies the attributes of the query.
+ * Only the {@link module:esri/tasks/support/Query#objectIds objectIds} property should be
+ * specified. Adding any other properties will return an error. If query parameters are not provided,
+ * the count of all visible features is returned.
+ *
+ * @return {Promise} When resolved, returns the number of features satisfying the query.
+ *
+ * @method queryFeatureCount
+ * @memberOf module:esri/views/layers/SceneLayerView
+ * @instance
+ * @beta
+ *
+ * @example
+ * var lyr = new SceneLayer({
+ *   url: ssUrl  // points to a Scene Service layer url
+ * });
+ *
+ * view.whenLayerView(lyr).then(function(lyrView){
+ *  watchUtils.whenNotOnce(lyrView, "updating") // watches when the layer finishes updating the first time
+ *    .then(function() {
+ *      return lyrView.queryFeatureCount();
+ *    })
+ *    .then(function(count) {
+ *      console.log(count); // prints the number of client-side graphics that are currently visible in the view
+ *    });
+ * });
+  */
+
+
+
+
+
+
+
+/**
+ * Executes a {@link module:esri/tasks/support/Query} against features in the layer view that are visible to the camera and
+ * returns the 3D {@link module:esri/geometry/Extent} of features that satisfy the query. If query parameters are
+ * not provided, the extent and count of all visible features are returned.
+ *
+ * This method is not yet supported when the associated scene layer has a
+ * {@link module:esri/layers/SceneLayer#geometryType geometryType} of `point`.
+ *
+ * ::: esri-md class="panel trailer-1"
+ * To query for the extent of features directly from a Scene Service rather than those
+ * visible in the view, you must
+ * use the {@link module:esri/layers/SceneLayer#queryExtent SceneLayer.queryExtent()}
+ * method.
+ * :::
+ *
+ * @param {module:esri/tasks/support/Query} [params] - Specifies the attributes of the query.
+ * Only the {@link module:esri/tasks/support/Query#objectIds objectIds} property should be
+ * specified. Adding any other properties will return an error. If query parameters are not provided,
+ * the extent and count of all visible features are returned.
+ *
+ * @return {Promise} When resolved, returns the extent and count of the features
+ * that satisfy the input query. See the object specification table below for details.
+ * Property | Type | Description
+ * ---------|------|-------------
+ * count | Number | The number of features that satisfy the input query.
+ * extent | {@link module:esri/geometry/Extent} | The extent of the features that satisfy the query.
+ *
+ * @method queryExtent
+ * @memberOf module:esri/views/layers/SceneLayerView
+ * @instance
+ * @beta
+ *
+ * @example
+ * var lyr = new SceneLayer({
+ *   url: ssUrl  // points to a Scene Service layer url
+ * });
+ *
+ * view.whenLayerView(lyr).then(function(lyrView){
+ *  watchUtils.whenNotOnce(lyrView, "updating") // watches when the layer finishes updating the first time
+ *    .then(function() {
+ *      return lyrView.queryExtent();
+ *    })
+ *    .then(function(results) {
+ *      view.goTo(results.extent); // go to the extent of all the graphics in the layer view
+ *    });
+ * });
+ */

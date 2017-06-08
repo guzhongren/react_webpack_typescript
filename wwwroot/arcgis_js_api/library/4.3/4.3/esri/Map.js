@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define("require exports ./core/tsSupport/declareExtendsHelper ./core/tsSupport/decorateHelper ./core/Accessor ./core/CollectionFlattener ./core/Evented ./support/LayersMixin ./Ground ./support/basemapUtils ./support/groundUtils ./core/accessorSupport/decorators".split(" "),function(b,n,e,c,f,g,h,k,l,d,m,a){b=function(b){function a(a){a=b.call(this)||this;a.basemap=null;a.ground=new l;a._basemapCache=d.createCache();return a}e(a,b);Object.defineProperty(a.prototype,"allLayers",{get:function(){return new g({root:this,
+rootCollectionNames:["basemap.baseLayers","ground.layers","layers","basemap.referenceLayers"],getChildrenFunction:function(a){return a.layers}})},enumerable:!0,configurable:!0});a.prototype.castBasemap=function(a){return d.ensureType(a,this._basemapCache)};return a}(a.declared(f,h,k));c([a.property({readOnly:!0})],b.prototype,"allLayers",null);c([a.property()],b.prototype,"basemap",void 0);c([a.cast("basemap")],b.prototype,"castBasemap",null);c([a.property(),a.cast(m.ensureType)],b.prototype,"ground",
+void 0);return b=c([a.subclass("esri.Map")],b)});

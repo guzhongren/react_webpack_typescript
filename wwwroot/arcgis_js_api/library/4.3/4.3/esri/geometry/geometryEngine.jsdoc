@@ -1,0 +1,1033 @@
+/**
+  * @classdesc
+  * A client-side geometry engine for testing, measuring, and analyzing the spatial relationship
+  * between two or more geometries. Read the following blog series to learn more about GeometryEngine:
+  * * [ArcGIS Blog - GeometryEngine: Testing spatial relationships and editing](https://blogs.esri.com/esri/arcgis/2015/09/09/geometryengine-part-1-testing-spatial-relationships-and-editing/)
+  * * [ArcGIS Blog - GeometryEngine: Measurement](https://blogs.esri.com/esri/arcgis/2015/09/16/geometryengine-part-2-measurement/)
+  * * [ArcGIS Blog - GeometryEngine: Overlay analysis](https://blogs.esri.com/esri/arcgis/2015/09/23/geometryengine-part-3-overlay-analysis/)
+  *
+  * @module esri/geometry/geometryEngine
+  * @since 4.0
+  * @see [Sample - Geodesic Buffers (2D & 3D)](../sample-code/ge-geodesicbuffer/index.html)
+  * @see module:esri/geometry/geometryEngineAsync
+  */
+
+
+
+
+
+/**
+  * Creates planar (or Euclidean) buffer polygons at a specified distance around the input geometries.
+  *
+  * The GeometryEngine has two methods for buffering geometries client-side: buffer and [geodesicBuffer](#geodesicBuffer).
+  * Use caution when
+  * deciding which method to use. As a general rule, use [geodesicBuffer](#geodesicBuffer) if the input geometries
+  * have a spatial reference of either WGS84 (wkid: 4326) or {@link module:esri/geometry/SpatialReference#isWebMercator Web Mercator}. Only use buffer (this method)
+  * when attempting to buffer geometries with a [projected coordinate system](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Projected_coordinate_systems/02r3000000vt000000/) other than Web Mercator. If you need to buffer geometries
+  * with a [geographic coordinate system](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Geographic_coordinate_systems/02r300000105000000/) other than WGS84 (wkid: 4326), use
+  * {@link module:esri/tasks/GeometryService#buffer GeometryService.buffer()}.
+  *
+  * @method buffer
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {(module:esri/geometry/Geometry | module:esri/geometry/Geometry[])} geometry - The buffer input geometry.
+  *        The `geometry` and `distance` parameters must be specified as either both arrays or
+  *        both non-arrays. Never specify one as an array and the other a non-array.
+  * @param {(number|Array<number>)} distance - The specified distance(s) for buffering.
+  *        The `geometry` and `distance` parameters must be specified as either both arrays or
+  *        both non-arrays. Never specify one as an array and the other a non-array.
+  *        <br><br>When using an array of geometries as input, the length of the geometry array does not have to
+  *        equal the length of the `distance` array. For example, if you pass an array of four geometries:
+  *        `[g1, g2, g3, g4]` and an array with one distance: `[d1]`, all four geometries will be buffered by the
+  *        single distance value. If instead you use an array of three distances: `[d1, d2, d3]`, `g1` will be buffered by
+  *        `d1`, `g2` by `d2`, and `g3` and `g4` will both be buffered by `d3`. The value of the geometry array will
+  *        be matched one to one with those in the distance array until the final value of the distance array is reached,
+  *        in which case that value will be applied to the remaining geometries.
+  * @param {string | number} unit - Measurement unit of the distance(s).
+  *        Defaults to the units of the input geometries.
+  *        Use one of the possible values listed below or any of the
+  *        [numeric codes for linear units](https://developers.arcgis.com/java/api-reference/constant-values.html#com.esri.core.geometry.LinearUnit.Code.CENTIMETER).
+  *        <br><br>**Possible Values:** meters | feet | kilometers | miles | nautical-miles | yards
+  * @param {boolean} [unionResults] - Determines whether the output geometries should be unioned into a single
+  *        polygon.<br><br>**Default Value:** false
+  *
+  * @return {(module:esri/geometry/Polygon | module:esri/geometry/Polygon[])} The resulting buffer(s).
+  * The result will be an array if an array of geometries is used as input. It will be a single polygon if
+  * a single geometry is input into the function.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#buffer geometryEngineAsync.buffer()}
+  * @see {@link module:esri/geometry/geometryEngine#geodesicBuffer geometryEngine.geodesicBuffer()}
+  * @see {@link module:esri/geometry/geometryEngineAsync#geodesicBuffer geometryEngineAsync.geodesicBuffer()}
+  *
+  * @example
+  * // Buffer point by 1000 feet
+  * var ptBuff = geometryEngine.buffer(point, 1000, "feet");
+  *
+  *
+  *
+  */
+
+/**
+  * Calculates the clipped geometry from a target geometry by an envelope.
+  *
+  * @method clip
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry - The geometry to be clipped.
+  * @param {module:esri/geometry/Extent} envelope - The envelope used to clip.
+  *
+  * @return {module:esri/geometry/Geometry} Clipped geometry.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#clip geometryEngineAsync.clip()}
+  *
+  */
+
+/**
+  * Creates geodesic buffer polygons at a specified distance around the input geometries. When calculating distances,
+  * this method takes the curvature of the earth into account, which provides highly accurate results when dealing with
+  * very large geometries and/or geometries that spatially vary on a global scale where one projected coordinate
+  * system could not accurately plot coordinates and measure distances for all the geometries.
+  *
+  * This method only works with WGS84 (wkid: 4326) and {@link module:esri/geometry/SpatialReference#isWebMercator Web Mercator} spatial references. In general,
+  * if your input geometries are assigned one of those two spatial references, you should always use geodesicBuffer() to
+  * obtain the most accurate results for those geometries. If needing to buffer points assigned a [projected coordinate
+  * system other than Web Mercator](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Projected_coordinate_systems/02r3000000vt000000/), use [buffer()](#buffer) instead. If the input geometries
+  * have a [geographic coordinate system](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Geographic_coordinate_systems/02r300000105000000/) other than WGS84 (wkid: 4326), use
+  * {@link module:esri/tasks/GeometryService#buffer GeometryService.buffer()}.
+  *
+  * @method geodesicBuffer
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {(module:esri/geometry/Geometry | module:esri/geometry/Geometry[])} geometry - The buffer input geometry.
+  *        The `geometry` and `distance` parameters must be specified as either both arrays or
+  *        both non-arrays. Never specify one as an array and the other a non-array.
+  * @param {(number|Array<number>)} distance - The specified distance(s) for buffering.
+  *        The `geometry` and `distance` parameters must be specified as either both arrays or
+  *        both non-arrays. Never specify one as an array and the other a non-array.
+  *        <br><br>When using an array of geometries as input, the length of the geometry array does not have to
+  *        equal the length of the `distance` array. For example, if you pass an array of four geometries:
+  *        `[g1, g2, g3, g4]` and an array with one distance: `[d1]`, all four geometries will be buffered by the
+  *        single distance value. If instead you use an array of three distances: `[d1, d2, d3]`, `g1` will be buffered by
+  *        `d1`, `g2` by `d2`, and `g3` and `g4` will both be buffered by `d3`. The value of the geometry array will
+  *        be matched one to one with those in the distance array until the final value of the distance array is reached,
+  *        in which case that value will be applied to the remaining geometries.
+  * @param {string | number} unit - Measurement unit of the distance(s).
+  *        Defaults to the units of the input geometries.
+  *        Use one of the possible values listed below or any of the
+  *        [numeric codes for linear units](https://developers.arcgis.com/java/api-reference/constant-values.html#com.esri.core.geometry.LinearUnit.Code.CENTIMETER).
+  *        <br><br>**Possible Values:** meters | feet | kilometers | miles | nautical-miles | yards
+  * @param {boolean} [unionResults] - Determines whether the output geometries should be unioned into a single
+  *        polygon.<br><br>**Default Value:** false
+  *
+  * @return {(module:esri/geometry/Polygon | module:esri/geometry/Polygon[])} The resulting buffer(s).
+  * The result will be an array if an array of geometries is used as input. It will be a single polygon if
+  * a single geometry is input into the function.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#geodesicBuffer geometryEngineAsync.geodesicBuffer()}
+  *
+  * @example
+  * // point is a Point geometry
+  * var ptBuff = geometryEngine.geodesicBuffer(point, 1000, "kilometers");  // Buffer point by 1000km
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Indicates if one geometry contains another geometry.
+  *
+  * @method contains
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry1 - The geometry that is tested for the "contains" relationship to the other geometry.
+  * @param {module:esri/geometry/Geometry} geometry2 - The geometry that is tested for the "within" relationship to the other geometry.
+  *
+  * @return {boolean} Returns `true` if geometry1 contains geometry2 (or if geometry2 is within geometry1).
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#contains geometryEngineAsync.contains()}
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Calculates the convex hull of the input geometry. A convex hull is the smallest convex polygon that encloses a group of Objects,
+  * such as points. The input geometry can be a point, multipoint, polyline or polygon. The hull is typically a polygon but can also
+  * be a polyline or point in degenerate cases.
+  *
+  * @method convexHull
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry - The input geometry.
+  * @param {boolean=} merge - Dictates whether to merge output geometries.
+  *
+  * @return {(module:esri/geometry/Geometry | module:esri/geometry/Geometry[])} Usually returns a Polyon geometry.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#convexHull geometryEngineAsync.convexHull()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Indicates if one geometry crosses another geometry.
+  *
+  * @method crosses
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry1 - The geometry to cross.
+  * @param {module:esri/geometry/Geometry} geometry2 - The geometry being crossed.
+  *
+  * @return {boolean} Returns `true` if geometry1 crosses geometry2.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#crosses geometryEngineAsync.crosses()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Split the input Polyline or Polygon where it crosses a cutting Polyline. For Polylines, all left cuts are
+  * grouped together in the first Geometry. Right cuts and coincident cuts are grouped in the second Geometry and
+  * each undefined cut, along with any uncut parts, are output as separate Polylines. For Polygons, all left cuts
+  * are grouped in the first Polygon, all right cuts are grouped in the second Polygon, and each undefined cut, along with
+  * any left-over parts after cutting, are output as a separate Polygon. If no cuts are returned then the array will
+  * be empty. An undefined cut will only be produced if a left cut or right cut was produced and there was a part
+  * left over after cutting, or a cut is bounded to the left and right of the cutter.
+  *
+  * @method cut
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry - The geometry to be cut.
+  * @param {module:esri/geometry/Polyline} cutter - The polyline to cut the geometry.
+  *
+  * @return {module:esri/geometry/Geometry[]} Returns an array of geometries created by cutting the input geometry with the cutter.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#cut geometryEngineAsync.cut()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Densify geometries by plotting points between existing vertices.
+  *
+  * @method densify
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry - The geometry to be densified.
+  * @param {number} maxSegmentLength - The maximum segment length allowed. Must be a positive value.
+  * @param {string | number} maxSegmentLengthUnit - Measurement unit for maxSegmentLength.
+  * Defaults to the units of the input geometry.
+  * Use one of the possible values listed below or any of the
+  * [numeric codes for linear units](https://developers.arcgis.com/java/api-reference/constant-values.html#com.esri.core.geometry.LinearUnit.Code.CENTIMETER).
+  * <br><br>**Possible Values:** meters | feet | kilometers | miles | nautical-miles | yards
+  *
+  * @return {module:esri/geometry/Geometry} The densified geometry.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#densify geometryEngineAsync.densify()}
+  * @see [geodesicDensify()](#geodesicDensify)
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Creates the difference of two geometries. The resultant geometry is the portion of `inputGeometry` not in the `subtractor`.
+  * The dimension of the `subtractor` has to be equal to or greater than that of the `inputGeometry`.
+  *
+  * @method difference
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {(module:esri/geometry/Geometry | module:esri/geometry/Geometry[])} inputGeometry - The input geometry to subtract from.
+  * @param {module:esri/geometry/Geometry} subtractor - The geometry being subtracted from inputGeometry.
+  *
+  * @return {(module:esri/geometry/Geometry | module:esri/geometry/Geometry[])} Returns the geometry of inputGeometry minus the subtractor geometry.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#difference geometryEngineAsync.difference()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Indicates if one geometry is disjoint (doesn't instersect in any way) with another geometry.
+  *
+  * @method disjoint
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry1 - The base geometry that is tested for the "disjoint" relationship to the other geometry.
+  * @param {module:esri/geometry/Geometry} geometry2 - The comparison geometry that is tested for the "disjoint" relationship to the other geometry.
+  *
+  * @return {boolean} Returns `true` if geometry1 and geometry2 are disjoint (don't instersect in any way).
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#disjoint geometryEngineAsync.disjoint()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Calculates the shortest planar distance between two geometries. Distance is reported in the linear units specified by
+  * `distanceUnit` or, if `distanceUnit` is null, the units of the spatialReference of input geometry.
+  *
+  * ::: esri-md class="panel trailer-1"
+  * To calculate the geodesic distance between two points, first construct a
+  * {@link module:esri/geometry/Polyline} using the two points of interest as the beginning
+  * and ending points of a single path. Then use the polyline as input for the
+  * [geodesicLength()](#geodesicLength) method.
+  * :::
+  *
+  * @method distance
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry1 - First input geometry.
+  * @param {module:esri/geometry/Geometry} geometry2 - Second input geometry.
+  * @param {string | number} distanceUnit - Measurement unit of the return value.
+  * Defaults to the units of the input geometries.
+  * Use one of the possible values listed below or any of the
+  * [numeric codes for linear units](https://developers.arcgis.com/java/api-reference/constant-values.html#com.esri.core.geometry.LinearUnit.Code.CENTIMETER).
+  * <br><br>**Possible Values:** meters | feet | kilometers | miles | nautical-miles | yards
+  *
+  * @return {number} Distance between the two input geometries.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#distance geometryEngineAsync.distance()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Indicates if two geometries are equal.
+  *
+  * @method equals
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry1 - First input geometry.
+  * @param {module:esri/geometry/Geometry} geometry2 - Second input geometry.
+  *
+  * @return {boolean} Returns `true` if the two input geometries are equal.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#equals geometryEngineAsync.equals()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Returns an Object containing additional information about the input spatial reference.
+  *
+  * @method extendedSpatialReferenceInfo
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/SpatialReference} spatialReference - The input spatial reference.
+  *
+  * @return {Object} Returns an Object with the following specification:
+  *
+  * ```
+  * {
+  *   tolerance: <Number>,
+  *   unitBaseFactor: <Number>,
+  *   unitID: <Number>,
+  *   unitSquareDerivative: <Number>,
+  *   unitType: <Number>
+  * }
+  * ```
+  * @see {@link module:esri/geometry/geometryEngineAsync#extendedSpatialReferenceInfo geometryEngineAsync.extendedSpatialReferenceInfo()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Flips a geometry on the horizontal axis. Can optionally be flipped around a point.
+  *
+  * @method flipHorizontal
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry - The input geometry to be flipped.
+  * @param {module:esri/geometry/Point=} flipOrigin - Point to flip the geometry around. Defaults to the centroid of the geometry.
+  *
+  * @return {module:esri/geometry/Geometry} The flipped geometry.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#flipHorizontal geometryEngineAsync.flipHorizontal()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Flips a geometry on the vertical axis. Can optionally be flipped around a point.
+  *
+  * @method flipVertical
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry - The input geometry to be flipped.
+  * @param {module:esri/geometry/Point=} flipOrigin - Point to flip the geometry around. Defaults to the centroid of the geometry.
+  *
+  * @return {module:esri/geometry/Geometry} The flipped geometry.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#flipVertical geometryEngineAsync.flipVertical()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Performs the generalize operation on the geometries in the cursor. Point and Multipoint geometries are left unchanged.
+  * Envelope is converted to a Polygon and then generalized.
+  *
+  * @method generalize
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry - The input geometry to be generalized.
+  * @param {number} maxDeviation - The maximum allowed deviation from the generalized geometry to the original geometry.
+  * @param {boolean=} removeDegenerateParts - When `true` the degenerate parts of the geometry will
+  * be removed from the output (may be undesired for drawing).
+  * @param {(string | number)=} maxDeviationUnit - Measurement unit for maxDeviation.
+  * Defaults to the units of the input geometry.
+  * Use one of the possible values listed below or any of the
+  * [numeric codes for linear units](https://developers.arcgis.com/java/api-reference/constant-values.html#com.esri.core.geometry.LinearUnit.Code.CENTIMETER).
+  * <br><br>**Possible Values:** meters | feet | kilometers | miles | nautical-miles | yards
+  *
+  * @return {module:esri/geometry/Geometry} The generalized geometry.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#generalize geometryEngineAsync.generalize()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Calculates the area of the input geometry. As opposed to [planarArea()](#planarArea), geodesicArea takes into account
+  * the curvature of the earth when performing this calculation. Therefore, when using input geometries with a
+  * spatial reference of either WGS84 (wkid: 4326) or {@link module:esri/geometry/SpatialReference#isWebMercator Web Mercator}, it is best practice to
+  * calculate areas using geodesicArea(). If the input geometries have a projected coordinate system other than
+  * Web Mercator, use [planarArea()](#planarArea) instead.
+  *
+  * This method only works with WGS84 (wkid: 4326) and {@link module:esri/geometry/SpatialReference#isWebMercator Web Mercator} spatial references.
+  *
+  * @method geodesicArea
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Polygon} geometry - The input polygon.
+  * @param {string | number} unit - Measurement unit of the return value.
+  * Defaults to the units of the input geometries.
+  * Use one of the possible values listed below or any of the
+  * [numeric codes for area units](https://developers.arcgis.com/java/api-reference/constant-values.html#com.esri.core.geometry.AreaUnit.Code.ACRE).
+  * <br><br>**Possible Values:** acres | ares | hectares | square-feet | square-meters | square-yards |
+  * square-kilometers | square-miles
+  *
+  * @return {number} Area of the input geometry.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#geodesicArea geometryEngineAsync.geodesicArea()}
+  *
+  */
+
+
+/**
+* Returns a geodesically densified version of the input geometry. Use this function to draw the line(s) of the geometry along great circles.
+*
+* @method geodesicDensify
+* @memberof module:esri/geometry/geometryEngine
+* @instance
+*
+* @param {module:esri/geometry/Polyline | module:esri/geometry/Polygon} geometry - A polyline or polygon to densify.
+* @param {number} maxSegmentLength - The maximum segment length allowed. This must be a positive value.
+* @param {string|number} maxSegmentLengthUnit - Measurement unit for `maxSegmentLength`.
+* If a unit is not specified, the units are considered to be the same as the units of the `geometry`.
+* Use one of the possible values listed below or any of the
+* [numeric codes for linear units](https://developers.arcgis.com/java/api-reference/constant-values.html#com.esri.core.geometry.LinearUnit.Code.CENTIMETER).
+* <br><br>**Possible Values:** meters | feet | kilometers | miles | nautical-miles | yards
+*
+* @return {module:esri/geometry/Geometry} Returns the densified geometry.
+*
+* @example
+* // lineGeom is a line geometry
+* var densifiedGeom = geometryEngine.geodesicDensify(lineGeom, 10000);
+*
+* @see {@link module:esri/geometry/geometryEngineAsync#geodesicDensify geometryEngineAsync.geodesicDensify()}
+*
+*
+*
+*
+*/
+
+/**
+  * Calculates the length of the input geometry. As opposed to [planarLength()](#planarLength), geodesicLength() takes into account
+  * the curvature of the earth when performing this calculation. Therefore, when using input geometries with a
+  * spatial reference of either WGS84 (wkid: 4326) or {@link module:esri/geometry/SpatialReference#isWebMercator Web Mercator}, it is best practice to
+  * calculate lengths using geodesicLength(). If the input geometries have a projected coordinate system other than
+  * Web Mercator, use [planarLength()](#planarLength) instead.
+  *
+  * This method only works with WGS84 (wkid: 4326) and {@link module:esri/geometry/SpatialReference#isWebMercator Web Mercator} spatial references.
+  *
+  * @method geodesicLength
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry - The input geometry.
+  * @param {string | number} unit - Measurement unit of the return value.
+  * Defaults to the units of the input geometry.
+  * Use one of the possible values listed below or any of the
+  * [numeric codes for linear units](https://developers.arcgis.com/java/api-reference/constant-values.html#com.esri.core.geometry.LinearUnit.Code.CENTIMETER).
+  * <br><br>**Possible Values:** meters | feet | kilometers | miles | nautical-miles | yards
+  *
+  * @return {number} Length of the input geometry.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#geodesicLength geometryEngineAsync.geodesicLength()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Creates a new geometry through intersection between two geometries.
+  *
+  * @method intersect
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {(module:esri/geometry/Geometry | module:esri/geometry/Geometry[])} geometry - The input geometry(ies).
+  * @param {module:esri/geometry/Geometry} intersector - The geometry being intersected.
+  *
+  * @return {(module:esri/geometry/Geometry | module:esri/geometry/Geometry[])} The intersection of the geometries.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#intersect geometryEngineAsync.intersect()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Indicates if one geometry intersects another geometry.
+  *
+  * @method intersects
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry1 - The geometry that is tested for the intersects relationship to the other geometry.
+  * @param {module:esri/geometry/Geometry} geometry2 - The geometry being intersected.
+  *
+  * @return {boolean} Returns `true` if the input geometries intersect each other.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#intersects geometryEngineAsync.intersects()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Indicates if the given geometry is topologically simple.
+  *
+  * @method isSimple
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry - The input geometry.
+  *
+  * @return {boolean} Returns `true` if the geometry is topologically simple.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#isSimple geometryEngineAsync.isSimple()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Finds the coordinate of the geometry that is closest to the specified point.
+  *
+  * @method nearestCoordinate
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry - The geometry to consider.
+  * @param {module:esri/geometry/Point} inputPoint - The point used to search the nearest coordinate in the geometry.
+  *
+  * @return {Object} Returns an Object with the following properties:
+  * ```
+  * {
+  *   coordinate: <Point>,
+  *   distance: <Number>,
+  *   isRightSide: <Boolean>,
+  *   vertexIndex: <Number>,
+  *   isEmpty: <Boolean>
+  * }
+  * ```
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#nearestCoordinate geometryEngineAsync.nearestCoordinate()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Finds vertex on the geometry nearest to the specified point.
+  *
+  * @method nearestVertex
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry - The geometry to consider.
+  * @param {module:esri/geometry/Point} inputPoint - The point used to search the nearest vertex in the geometry.
+  *
+  * @return {Object} Returns an Object with the following properties:
+  *
+  * ```
+  * {
+  *   coordinate: <Point>,
+  *   distance: <Number>,
+  *   isRightSide: <Boolean>,
+  *   vertexIndex: <Number>,
+  *   isEmpty: <Boolean>
+  * }
+  * ```
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#nearestVertex geometryEngineAsync.nearestVertex()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Finds all vertices in the given distance from the specified point, sorted from the closest to the furthest and
+  * returns them as an array of Objects.
+  *
+  * @method nearestVertices
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry - The geometry to consider.
+  * @param {module:esri/geometry/Point} inputPoint - The point from which to measure.
+  * @param {number} searchRadius - The distance to search from the inputPoint.
+  * @param {number} maxVertexCountToReturn - The maximum number of vertices to return.
+  *
+  * @return {Object[]} An array of Objects. Each Object (representing one vertex) has the following specification:
+  *
+  * ```
+  * {
+  *   coordinate: <Point>,
+  *   distance: <Number>,
+  *   isRightSide: <Boolean>,
+  *   vertexIndex: <Number>,
+  *   isEmpty: <Boolean>
+  * }
+  * ```
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#nearestVertices geometryEngineAsync.nearestVertices()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Creates offset version of the input geometry. The offset operation creates a geometry that is a constant distance from an input
+  * polyline or polygon. It is similar to buffering, but produces a one-sided result.
+  *
+  * @method offset
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {(module:esri/geometry/Geometry | module:esri/geometry/Geometry[])} geometry - The geometries to offset.
+  * @param {number} offsetDistance - The offset distance for the Geometries. If offsetDistance > 0, then the offset
+  * geometry is constructed to the right of the oriented input geometry, if offsetDistance = 0, then there is no
+  * change in the geometries, otherwise it is constructed to the left. For a simple polygon, the orientation of outer
+  * rings is clockwise and for inner rings it is counter clockwise. So the "right side" of a simple polygon is always its inside.
+  * @param {string | number} offsetUnit - Measurement unit of the offset distance.
+  * Defaults to the units of the input geometries.
+  * Use one of the possible values listed below or any of the
+  * [numeric codes for linear units](https://developers.arcgis.com/java/api-reference/constant-values.html#com.esri.core.geometry.LinearUnit.Code.CENTIMETER).
+  * <br><br>**Possible Values:** meters | feet | kilometers | miles | nautical-miles | yards
+  * @param {string} joinType - The join type. <br><br>**Possible values:** round | bevel | miter | square
+  * @param {number=} bevelRatio - Applicable when `joinType = 'miter'`; bevelRatio is multiplied by the offset distance and
+  * the result determines how far a mitered offset intersection can be located before it is beveled.
+  * @param {number=} flattenError - Applicable when `joinType = 'round'`; flattenError determines the maximum distance of the resulting
+  * segments compared to the true circular arc. The algorithm never produces more than around 180 vertices for each round join.
+  *
+  * @return {(module:esri/geometry/Geometry | module:esri/geometry/Geometry[])} The offset geometries.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#offset geometryEngineAsync.offset()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Indicates if one geometry overlaps another geometry.
+  *
+  * @method overlaps
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry1 - The base geometry that is tested for the "overlaps" relationship with the other geometry.
+  * @param {module:esri/geometry/Geometry} geometry2 - The comparison geometry that is tested for the "overlaps" relationship with the other geometry.
+  *
+  * @return {boolean} Returns `true` if the two geometries overlap.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#overlaps geometryEngineAsync.overlaps()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Calculates the area of the input geometry. As opposed to [geodesicArea()](#geodesicArea), planarArea() performs
+  * this calculation using projected coordinates and does not take into account the earth's curvature. When using input geometries with a
+  * spatial reference of either WGS84 (wkid: 4326) or {@link module:esri/geometry/SpatialReference#isWebMercator Web Mercator}, it is best practice to
+  * calculate areas using [geodesicArea()](#geodesicArea). If the input geometries have a projected coordinate system other than
+  * Web Mercator, use planarArea() instead.
+  *
+  * @method planarArea
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Polygon} geometry - The input polygon.
+  * @param {string | number} unit - Measurement unit of the return value.
+  * Defaults to the units of the input geometries.
+  * Use one of the possible values listed below or any of the
+  * [numeric codes for area units](https://developers.arcgis.com/java/api-reference/constant-values.html#com.esri.core.geometry.AreaUnit.Code.ACRE).
+  * <br><br>**Possible Values:** acres | ares | hectares | square-feet | square-meters | square-yards |
+  * square-kilometers | square-miles
+  *
+  * @return {number} The area of the input geometry.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#planarArea geometryEngineAsync.planarArea()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Calculates the length of the input geometry. As opposed to [geodesicLength()](#geodesicLength), planarLength() uses
+  * projected coordinates and does not take into account
+  * the curvature of the earth when performing this calculation. When using input geometries with a
+  * spatial reference of either WGS84 (wkid: 4326) or {@link module:esri/geometry/SpatialReference#isWebMercator Web Mercator}, it is best practice to
+  * calculate lengths using [geodesicLength()](#geodesicLength). If the input geometries have a projected coordinate system other than
+  * Web Mercator, use planarLength() instead.
+  *
+  * @method planarLength
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry - The input geometry.
+  * @param {string | number} unit - Measurement unit of the return value.
+  * Defaults to the units of the input geometries.
+  * Use one of the possible values listed below or any of the
+  * [numeric codes for linear units](https://developers.arcgis.com/java/api-reference/constant-values.html#com.esri.core.geometry.LinearUnit.Code.CENTIMETER).
+  * <br><br>**Possible Values:** meters | feet | kilometers | miles | nautical-miles | yards
+  *
+  * @return {number} The length of the input geometry.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#planarLength geometryEngineAsync.planarLength()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Indicates if the given DE-9IM relation holds for the two geometries.
+  *
+  * @method relate
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry1 - The first geometry for the relation.
+  * @param {module:esri/geometry/Geometry} geometry2 - The second geometry for the relation.
+  * @param {string} relation - The Dimensionally Extended 9 Intersection Model (DE-9IM) matrix relation
+  * (encoded as a string) to test against the relationship of the two geometries. This string contains the
+  * test result of each intersection represented in the DE-9IM matrix. Each result is one character of the
+  * string and may be represented as either a number (maximum dimension returned: `0`,`1`,`2`), a Boolean
+  * value (`T` or `F`), or a mask character (for ignoring results: '\*').<br><br>Example: Each of the following
+  * DE-9IM string codes are valid for testing whether a polygon geometry completely contains a line geometry:
+  * `TTTFFTFFT` (Boolean), 'T*\*\*\*\*\*FF\*' (ignore irrelevant intersections), or '102FF\*FF\*' (dimension form).
+  * Each returns the same result.<br><br>See [this article](https://en.wikipedia.org/wiki/DE-9IM) and
+  * [this ArcGIS help page](https://desktop.arcgis.com/en/arcmap/latest/manage-data/using-sql-with-gdbs/relational-functions-for-st-geometry.htm)
+  * for more information about the DE-9IM model and how string codes are constructed.
+  *
+  * @return {boolean} Returns `true` if the relation of the input geometries holds.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#relate geometryEngineAsync.relate()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Rotates a geometry counterclockwise by the specified number of degrees.
+  * Rotation is around the centroid, or a given rotation point.
+  *
+  * @method rotate
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry - The geometry to rotate.
+  * @param {number} angle - The rotation angle in degrees.
+  * @param {module:esri/geometry/Point} [rotationOrigin] - Point to rotate the geometry around. Defaults to the centroid of the geometry.
+  *
+  * @return {module:esri/geometry/Geometry} The rotated geometry.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#rotate geometryEngineAsync.rotate()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Performs the simplify operation on the geometry which alters the given geometries to make their definitions
+  * topologically legal with respect to their geometry type.
+  *
+  * @method simplify
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry - The geometry to be simplified.
+  *
+  * @return {module:esri/geometry/Geometry} The simplified geometry.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#simplify geometryEngineAsync.simplify()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Creates the symmetric difference of two geometries. The symmetric difference includes the parts
+  * that are in either of the sets, but not in both.
+  *
+  * @method symmetricDifference
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {(module:esri/geometry/Geometry | module:esri/geometry/Geometry[])} leftGeometry - One of the Geometry instances in the XOR operation.
+  * @param {module:esri/geometry/Geometry} rightGeometry - One of the Geometry instances in the XOR operation.
+  *
+  * @return {(module:esri/geometry/Geometry | module:esri/geometry/Geometry[])} The symmetric differences of the two geometries.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#symmetricDifference geometryEngineAsync.symmetricDifference()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Indicates if one geometry touches another geometry.
+  *
+  * @method touches
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry1 - The geometry to test the "touches" relationship with the other geometry.
+  * @param {module:esri/geometry/Geometry} geometry2 - The geometry to be touched.
+  *
+  * @return {boolean} When `true`, geometry1 touches geometry2.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#touches geometryEngineAsync.touches()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * All inputs must be of the same type of geometries and share one spatial reference.
+  *
+  * @method union
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry[]} geometries - An array of Geometries to union.
+  *
+  * @return {module:esri/geometry/Geometry} The union of the geometries.
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#union geometryEngineAsync.union()}
+  *
+  * @example
+  * // pt1 and pt2 are Point geometries to union together
+  * var union = geometryEngine.union([pt1, pt2]);
+  *
+  *
+  *
+  *
+  *
+  */
+
+/**
+  * Indicates if one geometry is within another geometry.
+  *
+  * @method within
+  * @memberof module:esri/geometry/geometryEngine
+  * @instance
+  *
+  * @param {module:esri/geometry/Geometry} geometry1 - The base geometry that is tested for the "within" relationship to the other geometry.
+  * @param {module:esri/geometry/Geometry} geometry2 - The comparison geometry that is tested for the "contains" relationship to the other geometry.
+  *
+  * @return {boolean} Returns `true` if geometry1 is within geometry2 (or if geometry2 contains geometry1).
+  *
+  * @see {@link module:esri/geometry/geometryEngineAsync#within geometryEngineAsync.within()}
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  */

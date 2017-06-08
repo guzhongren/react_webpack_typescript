@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define({"esri/widgets/Popup/nls/Popup":{zoom:"Zoom sur",next:"Entit\u00e9 suivante",previous:"Entit\u00e9 pr\u00e9c\u00e9dente",close:"Fermer",dock:"Ancrer",undock:"D\u00e9tacher",menu:"Menu",untitled:"Sans titre",pageText:"{index} sur {total}",noFeaturesFound:"Aucune entit\u00e9 trouv\u00e9e",selectedFeature:"Entit\u00e9 s\u00e9lectionn\u00e9e",selectedFeatures:"{total} r\u00e9sultats",loading:"Chargement",_localized:{}},"esri/widgets/Popup/nls/PopupRenderer":{attach:"Pi\u00e8ces jointes",fields:"Champs",
+fieldsSummary:"Liste des attributs et des valeurs",media:"Support",next:"Suivant",numCharts:"Nombre de diagrammes",numImages:"Nombre d'images",noTitle:"Sans titre",previous:"Pr\u00e9c\u00e9dent",view:"Afficher",_localized:{}},"esri/widgets/Spinner/nls/Spinner":{searching:"Recherche",_localized:{}},"esri/widgets/Compass/nls/Compass":{reset:"R\u00e9initialiser l'orientation de la boussole",_localized:{}},"esri/widgets/Zoom/nls/Zoom":{zoomIn:"Zoom avant",zoomOut:"Zoom arri\u00e8re",_localized:{}},"esri/widgets/NavigationToggle/nls/NavigationToggle":{toggle:"Basculer pour se d\u00e9placer ou pivoter en 3D",
+_localized:{}}});

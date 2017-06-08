@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["require","exports","./TilingScheme","../../../core/Error"],function(f,b,e,c){b.autoUpdateSkirtsVisibility=function(a,c){};b.checkIfTileInfoSupportedForViewSR=function(a,d,b){d=a.lods.length-1;if(a.spatialReference.isWebMercator){if(!e.makeWebMercatorAuxiliarySphere(d).compatibleWith(a))return new c("tilingscheme:incompatible-global-web-mercator","The tiling scheme is not compatible with the ArcGIS Online Web Mercator tiling scheme")}else if(a.spatialReference.isWGS84){if(!e.makeWGS84WithTileSize(a.size[1],
+d).compatibleWith(a))return new c("tilingscheme:incompatible-global-wgs84","The tiling scheme is not compatible with the ArcGIS Online WGS84 tiling scheme")}else return new c("tilingscheme:global-unsupported-spatial-reference","The tiling scheme spatial reference is not supported in global scenes");if(b&&!a.spatialReference.equals(b))return new c("tilingscheme:spatial-reference-mismatch","The tiling scheme does not match the spatial reference of the global scene")}});

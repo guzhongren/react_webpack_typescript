@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["require","exports","dojo/dom","./Surface"],function(k,b,e,h){function f(a,d){return document.createElementNS?document.createElementNS(a,d):document.createElement(d)}b.xmlns={xlink:"http://www.w3.org/1999/xlink",svg:"http://www.w3.org/2000/svg"};b.dasharray={solid:"none",shortdash:[4,1],shortdot:[1,1],shortdashdot:[4,1,1,1],shortdashdotdot:[4,1,1,1,1,1],dot:[1,3],dash:[4,3],longdash:[8,3],dashdot:[4,3,1,3],longdashdot:[8,3,1,3],longdashdotdot:[8,3,1,3,1,3]};b._createElementNS=f;b._setAttributeNS=
+function(a,d,b,c){return a.setAttributeNS?a.setAttributeNS(d,b,c):a.setAttribute(b,c)};b._createTextNode=function(a){return document.createTextNode(a)};b._createFragment=function(){return document.createDocumentFragment()};b.getRef=function(a){return a&&"none"!==a?a.match(/^url\(#.+\)$/)?e.byId(a.slice(5,-1)):a.match(/^#dojoUnique\d+$/)?e.byId(a.slice(1)):null:null};b.createSurface=function(a,d,g){var c=new h.default;c.rawNode=f(b.xmlns.svg,"svg");c.rawNode.setAttribute("overflow","hidden");d&&c.rawNode.setAttribute("width",
+0>d?0:d);g&&c.rawNode.setAttribute("height",0>g?0:g);d=f(b.xmlns.svg,"defs");c.rawNode.appendChild(d);c.defNode=d;c._parent=e.byId(a);c._parent.appendChild(c.rawNode);return c}});

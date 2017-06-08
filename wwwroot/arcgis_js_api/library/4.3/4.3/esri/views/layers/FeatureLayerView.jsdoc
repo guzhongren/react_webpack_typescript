@@ -1,0 +1,300 @@
+/**
+* Represents the {@link module:esri/views/layers/LayerView} of a {@link module:esri/layers/FeatureLayer}
+* after it has been added to a {@link module:esri/Map} in either a {@link module:esri/views/MapView} or
+* {@link module:esri/views/SceneView}.
+*
+* The FeatureLayerView is responsible for rendering a {@link module:esri/layers/FeatureLayer FeatureLayer's}
+* features as {@link module:esri/Graphic graphics} in the {@link module:esri/views/View}. The [methods](#methods-summary)
+* in the FeatureLayerView provide developers with the ability to query graphics in the view. See the
+* code snippets in the [methods](#methods-summary) below for examples of how to access client-side graphics from the
+* view.
+*
+* @module esri/views/layers/FeatureLayerView
+* @noconstructor
+*
+* @since 4.0
+* @see module:esri/layers/FeatureLayer
+* @see [Sample - Query FeatureLayerView](../sample-code/featurelayerview-query/index.html)
+*/
+
+
+
+////////////////////////////////////////////////////////////
+//
+// Constructor
+//
+////////////////////////////////////////////////////////////
+
+
+
+/**
+ * @extends module:esri/views/layers/LayerView
+ * @constructor module:esri/views/layers/FeatureLayerView
+ * @param {Object} [properties] - See the [properties](#properties-summary) for a list of all the properties
+ *                            that may be passed into the constructor.
+ */
+
+
+////////////////////////////////////////////////////////////
+//
+// Methods
+//
+////////////////////////////////////////////////////////////
+
+
+
+/**
+ * Executes a {@link module:esri/tasks/support/Query} against features available for drawing in the layer view
+ * and returns an array of {@link module:esri/Graphic Graphic[]}. If query parameters are not provided,
+ * all features available for drawing are returned.
+ *
+ * ::: esri-md class="panel trailer-1"
+ * To execute a query against all the features in a Feature Service rather than only those visible in the view,
+ * you must use the {@link module:esri/layers/FeatureLayer#queryFeatures FeatureLayer.queryFeatures()}
+ * method.
+ * :::
+ *
+ * @param {module:esri/tasks/support/Query} [params] - Specifies the attributes and spatial filter of the query.
+ * Only the {@link module:esri/tasks/support/Query#geometry geometry},
+ * {@link module:esri/tasks/support/Query#objectIds objectIds}, and
+ * {@link module:esri/tasks/support/Query#spatialRelationship spatialRelationship} properties should be
+ * specified. Adding any other properties will return an error. If specifying a spatialRelationship,
+ * note that `intersects` is the only supported operation. If query parameters are not provided,
+ * all features available for drawing are returned.
+ *
+ *
+ * @return {Promise} When resolved, an array of {@link module:esri/Graphic Graphic[]} is returned.
+ * This array will not be populated if zero results are found.
+ *
+ * @method queryFeatures
+ * @memberOf module:esri/views/layers/FeatureLayerView
+ * @instance
+ *
+ * @example
+ * var lyr = new FeatureLayer({
+ *   url: fsUrl  // points to a Feature Service layer url
+ * });
+ *
+ * var query = new Query();
+ * query.geometry = new Point({
+ *   x: -122,
+ *   y: 38,
+ *   z: 20000
+ * });
+ * query.spatialRelationship = "intersects";
+ *
+ * view.whenLayerView(lyr).then(function(lyrView){
+ *   lyrView.watch("updating", function(val){
+ *     if(!val){  // wait for the layer view to finish updating
+ *       lyrView.queryFeatures(query).then(function(results){
+ *         console.log(results);  // prints the array of client-side graphics to the console
+ *       });
+ *     }
+ *   });
+ * });
+ *
+ * @example
+ * var lyr = new FeatureLayer({
+ *   url: fsUrl  // points to a Feature Service layer url
+ * });
+ *
+ * // returns all the graphics from the layer view
+ * view.whenLayerView(lyr).then(function(lyrView){
+ *   lyrView.watch("updating", function(val){
+ *     if(!val){  // wait for the layer view to finish updating
+ *       lyrView.queryFeatures().then(function(results){
+ *         console.log(results);  // prints all the client-side graphics to the console
+ *       });
+ *     }
+ *   });
+ * });
+ */
+
+
+
+
+
+
+
+/**
+ * Executes a {@link module:esri/tasks/support/Query} against features available for drawing in
+ * the layer view and returns array of the ObjectIDs of features that satisfy the input query. If
+ * query parameters are not provided, the ObjectIDs of all features available for drawing are returned.
+ *
+ * ::: esri-md class="panel trailer-1"
+ * To query for ObjectIDs of features directly from a Feature Service rather than those
+ * visible in the view, you must
+ * use the {@link module:esri/layers/FeatureLayer#queryObjectIds FeatureLayer.queryObjectIds()}
+ * method.
+ * :::
+ *
+ * @param {module:esri/tasks/support/Query} [params] - Specifies the attributes and spatial filter of the query.
+ * Only the {@link module:esri/tasks/support/Query#geometry geometry},
+ * {@link module:esri/tasks/support/Query#objectIds objectIds}, and
+ * {@link module:esri/tasks/support/Query#spatialRelationship spatialRelationship} properties should be
+ * specified. Adding any other properties will return an error. If specifying a spatialRelationship,
+ * note that `intersects` is the only supported operation. If query parameters are not provided,
+ * the ObjectIDs of all features available for drawing are returned.
+ *
+ * @return {Promise} When resolved, returns an array of numbers representing the ObjectIDs of the features
+ *                   satisfying the query.
+ *
+ * @method queryObjectIds
+ * @memberOf module:esri/views/layers/FeatureLayerView
+ * @instance
+ *
+ * @example
+ * var lyr = new FeatureLayer({
+ *   url: fsUrl  // points to a Feature Service layer url
+ * });
+ *
+ * view.on("click", function(event){
+ *
+ *   var query = new Query();
+ *   query.geometry = event.mapPoint;  // obtained from a view click event
+ *   query.spatialRelationship = "intersects";
+ *
+ *   view.whenLayerView(lyr).then(function(lyrView){
+ *     watchUtils.whenNotOnce(lyrView, "updating")
+ *     .then(function(){
+ *       return lyrView.queryObjectIds(query);
+ *     })
+ *     .then(function(ids){
+ *       console.log(ids);  // prints the ids of the client-side graphics to the console
+ *     });
+ *   });
+ * });
+ *
+ * @example
+ * var lyr = new FeatureLayer({
+ *   url: fsUrl  // points to a Feature Service layer url
+ * });
+ *
+ * // returns all the Ids from the graphics in the layer view
+ * view.whenLayerView(lyr).then(function(lyrView){
+ *   return lyrView.queryObjectIds()
+ * }).then(function(ids){
+ *   console.log(ids);  // prints the ids of all the client-side graphics to the console
+ * });
+ */
+
+
+
+
+
+
+
+/**
+ * Executes a {@link module:esri/tasks/support/Query} against features available for drawing in the layer view
+ * and returns the number of features that satisfy the query. If query parameters are not provided,
+ * the count of all features available for drawing is returned.
+ *
+ * ::: esri-md class="panel trailer-1"
+ * To query for the count of features directly from a Feature Service rather than those
+ * visible in the view, you must
+ * use the {@link module:esri/layers/FeatureLayer#queryFeatureCount FeatureLayer.queryFeatureCount()}
+ * method.
+ * :::
+ *
+ * @param {module:esri/tasks/support/Query} [params] - Specifies the attributes and spatial filter of the query.
+ * Only the {@link module:esri/tasks/support/Query#geometry geometry},
+ * {@link module:esri/tasks/support/Query#objectIds objectIds}, and
+ * {@link module:esri/tasks/support/Query#spatialRelationship spatialRelationship} properties should be
+ * specified. Adding any other properties will return an error. If specifying a spatialRelationship,
+ * note that `intersects` is the only supported operation. If query parameters are not provided,
+ * the count of all features available for drawing is returned.
+ *
+ * @return {Promise} When resolved, returns the number of features satisfying the query.
+ *
+ * @method queryFeatureCount
+ * @memberOf module:esri/views/layers/FeatureLayerView
+ * @instance
+ *
+ * @example
+ * var lyr = new FeatureLayer({
+ *   url: fsUrl  // points to a Feature Service layer url
+ * });
+ *
+ * view.on("click", function(event){
+ *
+ *   var query = new Query();
+ *   query.geometry = event.mapPoint;  // obtained from a view click event
+ *   query.spatialRelationship = "intersects";
+ *
+ *   view.whenLayerView(lyr).then(function(lyrView){
+ *     watchUtils.whenNotOnce(lyrView, "updating")
+ *     .then(function(){
+ *       return lyrView.queryFeatureCount(query);
+ *     })
+ *     .then(function(count){
+ *       console.log(count);  // prints the number of the client-side graphics that satisfy the query
+ *     });
+ *   });
+ * });
+ *
+ * @example
+ * var lyr = new FeatureLayer({
+ *   url: fsUrl  // points to a Feature Service layer url
+ * });
+ *
+ * view.whenLayerView(lyr).then(function(lyrView){
+ *   return lyrView.queryFeatureCount()
+ * }).then(function(count){
+ *   console.log(count);  // prints the total number of client-side graphics to the console
+ * });
+ */
+
+
+
+
+
+
+
+/**
+ * Executes a {@link module:esri/tasks/support/Query} against features available for drawing in the layer view and
+ * returns the {@link module:esri/geometry/Extent} of features that satisfy the query. Valid only for
+ * [hosted feature services](http://doc.arcgis.com/en/arcgis-online/share-maps/hosted-web-layers.htm)
+ * on [arcgis.com](http://arcgis.com) and for ArcGIS Server 10.3.1 and later. If query parameters are
+ * not provided, the extent and count of all features available for drawing are returned.
+ *
+ * ::: esri-md class="panel trailer-1"
+ * To query for the extent of features directly from a Feature Service rather than those
+ * visible in the view, you must
+ * use the {@link module:esri/layers/FeatureLayer#queryExtent FeatureLayer.queryExtent()}
+ * method.
+ * :::
+ *
+ * @param {module:esri/tasks/support/Query} [params] - Specifies the attributes and spatial filter of the query.
+ * Only the {@link module:esri/tasks/support/Query#geometry geometry},
+ * {@link module:esri/tasks/support/Query#objectIds objectIds}, and
+ * {@link module:esri/tasks/support/Query#spatialRelationship spatialRelationship} properties should be
+ * specified. Adding any other properties will return an error. If specifying a spatialRelationship,
+ * note that `intersects` is the only supported operation. If query parameters are not provided,
+ * the extent and count of all features available for drawing are returned.
+ *
+ * @return {Promise} When resolved, returns the extent and count of the features
+ * that satisfy the input query. See the object specification table below for details.
+ * Property | Type | Description
+ * ---------|------|-------------
+ * count | Number | The number of features that satisfy the input query.
+ * extent | {@link module:esri/geometry/Extent} | The extent of the features that satisfy the query.
+ *
+ * @method queryExtent
+ * @memberOf module:esri/views/layers/FeatureLayerView
+ * @instance
+ *
+ * @example
+ * var lyr = new FeatureLayer({
+ *   url: fsUrl  // points to a Feature Service layer url
+ * });
+ *
+ * view.whenLayerView(lyr).then(function(lyrView){
+ *   lyrView.watch("updating", function(val){
+ *     if(!val){  // wait for the layer view to finish updating
+ *       lyrView.queryExtent().then(function(results){
+ *         view.goTo(results.extent);  // go to the extent of all the graphics in the layer view
+ *       });
+ *     }
+ *   });
+ * });
+ */

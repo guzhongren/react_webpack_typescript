@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define("require exports ../../core/tsSupport/declareExtendsHelper ../../core/tsSupport/decorateHelper ../../core/accessorSupport/decorators ../../core/MultiOriginJSONSupport ../support/arcgisLayerUrl".split(" "),function(a,g,d,c,b,e,f){a=function(a){function b(){return null!==a&&a.apply(this,arguments)||this}d(b,a);Object.defineProperty(b.prototype,"title",{get:function(){if(this._get("title")&&"defaults"!==this.originOf("title"))return this._get("title");if(this.url){var a=f.parse(this.url);if(a&&
+a.title)return a.title}return this._get("title")||""},set:function(a){this._set("title",a)},enumerable:!0,configurable:!0});return b}(b.declared(e));c([b.property({dependsOn:["url"]})],a.prototype,"title",null);c([b.property()],a.prototype,"url",void 0);return a=c([b.subclass("esri.layers.mixins.ArcGISService")],a)});

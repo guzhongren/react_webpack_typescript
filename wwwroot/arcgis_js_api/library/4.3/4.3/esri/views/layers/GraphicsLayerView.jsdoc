@@ -1,0 +1,169 @@
+/**
+* Represents the {@link module:esri/views/layers/LayerView} of a {@link module:esri/layers/GraphicsLayer}
+* after it has been added to a {@link module:esri/Map} in either a {@link module:esri/views/MapView} or
+* {@link module:esri/views/SceneView}.
+*
+* The GraphicsLayerView is responsible for rendering a {@link module:esri/layers/GraphicsLayer GraphicsLayer's}
+* features as {@link module:esri/Graphic graphics} in the {@link module:esri/views/View}. The [methods](#methods-summary)
+* in the GraphicsLayerView provide developers with the ability to query graphics in the view. See the
+* code snippets in the [methods](#methods-summary) below for examples of how to access client-side graphics from the
+* view.
+*
+* @module esri/views/layers/GraphicsLayerView
+* @noconstructor
+*
+* @since 4.0
+* @see module:esri/layers/GraphicsLayer
+*/
+
+
+
+////////////////////////////////////////////////////////////
+//
+// Constructor
+//
+////////////////////////////////////////////////////////////
+
+
+
+/**
+ * @extends module:esri/views/layers/LayerView
+ * @constructor module:esri/views/layers/GraphicsLayerView
+ * @param {Object} [properties] - See the [properties](#properties-summary) for a list of all the properties
+ *                            that may be passed into the constructor.
+ */
+
+
+////////////////////////////////////////////////////////////
+//
+// Methods
+//
+////////////////////////////////////////////////////////////
+
+
+
+/**
+ * Returns all graphics available for drawing in the layer view
+ * as an array of {@link module:esri/Graphic Graphic[]}.
+ *
+ * @return {Promise} When resolved, an array of {@link module:esri/Graphic Graphic[]} is returned.
+ *
+ * @method queryGraphics
+ * @memberOf module:esri/views/layers/GraphicsLayerView
+ * @instance
+ *
+ * @example
+ * var lyr = new GraphicsLayer();
+ *
+ * // returns all the graphics from the layer view
+ * view.whenLayerView(lyr).then(function(lyrView){
+ *   lyrView.watch("updating", function(val){
+ *     if(!val){  // wait for the layer view to finish updating
+ *       lyrView.queryGraphics().then(function(results){
+ *         console.log(results);  // prints the array of client-side graphics to the console
+ *       });
+ *     }
+ *   });
+ * });
+ */
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Executes a {@link module:esri/tasks/support/Query} against features available for drawing in the layer view and
+ * returns the number of features that satisfy the query.
+ *
+ * @param {module:esri/tasks/support/Query} [params] - Specifies the attributes and spatial filter of the query.
+ * Only the {@link module:esri/tasks/support/Query#geometry geometry},
+ * {@link module:esri/tasks/support/Query#objectIds objectIds}, and
+ * {@link module:esri/tasks/support/Query#spatialRelationship spatialRelationship} properties should be
+ * specified. Adding any other properties will return an error. If specifying a spatialRelationship,
+ * note that `intersects` is the only supported operation.
+ *
+ * @return {Promise} When resolved, returns an the number of features satisfying the query.
+ *
+ * @method queryFeatureCount
+ * @memberOf module:esri/views/layers/GraphicsLayerView
+ * @instance
+ * @ignore
+ * @example
+ * var lyr = new GraphicsLayer();
+ *
+ * var query = new Query();
+ * query.geometry = mapPoint;  // obtained from a view click event
+ * query.spatialRelationship = "intersects";
+ *
+ * view.whenLayerView(lyr).then(function(lyrView){
+ *   lyrView.watch("updating", function(val){
+ *     if(!val){  // wait for the layer view to finish updating
+ *       return lyrView.queryFeatureCount(query);
+ *     }
+ *   });
+ * }).then(function(count){
+ *   console.log(count);  // prints the number of the client-side graphics
+ *                        // that intersect the view click to the console
+ * });
+ *
+ * @example
+ * var lyr = new GraphicsLayer();
+ *
+ * view.whenLayerView(lyr).then(function(lyrView){
+ *   lyrView.watch("updating", function(val){
+ *     if(!val){  // wait for the layer view to finish updating
+ *       return lyrView.queryFeatureCount();
+ *     }
+ *   });
+ * }).then(function(count){
+ *   console.log(count);  // prints the total number of client-side graphics to the console
+ * });
+ */
+
+
+
+
+
+
+
+/**
+ * Executes a {@link module:esri/tasks/support/Query} against graphics available for drawing in the layer view and
+ * returns the {@link module:esri/geometry/Extent} of features that satisfy the query.
+ *
+ * @param {module:esri/tasks/support/Query} [params] - Specifies the attributes and spatial filter of the query.
+ * Only the {@link module:esri/tasks/support/Query#geometry geometry},
+ * {@link module:esri/tasks/support/Query#objectIds objectIds}, and
+ * {@link module:esri/tasks/support/Query#spatialRelationship spatialRelationship} properties should be
+ * specified. Adding any other properties will return an error. If specifying a spatialRelationship,
+ * note that `intersects` is the only supported operation.
+ *
+ * @return {Promise} When resolved, returns the extent and count of the features
+ * that satisfy the input query. See the object specification table below for details.
+ * Property | Type | Description
+ * ---------|------|-------------
+ * count | Number | The number of features that satisfy the input query.
+ * extent | {@link module:esri/geometry/Extent} | The extent of the features that satisfy the query.
+ *
+ * @method queryExtent
+ * @memberOf module:esri/views/layers/GraphicsLayerView
+ * @instance
+ * @ignore
+ * @example
+ * var lyr = new GraphicsLayer();
+ *
+ * view.whenLayerView(lyr).then(function(lyrView){
+ *   lyrView.watch("updating", function(val){
+ *     if(!val){  // wait for the layer view to finish updating
+ *       return lyrView.queryExtent();
+ *     }
+ *   });
+ * }).then(function(results){
+ *   view.goTo(results.extent);  // animates to the extent of all the graphics in the layer view
+ * });
+ */

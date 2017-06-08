@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["require","exports","./TilingScheme","../support/aaBoundingRect"],function(e,b,d,c){(function(a){a[a.MAP=0]="MAP";a[a.ELEVATION=1]="ELEVATION";a[a.LAYER_CLASS_COUNT=2]="LAYER_CLASS_COUNT"})(b.LayerClass||(b.LayerClass={}));(function(a){a[a.NONE=0]="NONE";a[a.SPLIT=1]="SPLIT";a[a.VSPLITMERGE=2]="VSPLITMERGE";a[a.MERGE=4]="MERGE";a[a.DECODE_LERC=8]="DECODE_LERC";a[a.UPDATE_GEOMETRY=16]="UPDATE_GEOMETRY";a[a.UPDATE_TEXTURE=32]="UPDATE_TEXTURE"})(b.TileUpdateTypes||(b.TileUpdateTypes={}));b.TILE_LOADING_DEBUGLOG=
+!1;b.MAX_ROOT_TILES=64;b.MAX_TILE_TESSELATION=512;b.ELEVATION_NODATA_VALUE=3.40282347E38/10;b.ELEVATION_DESIRED_RESOLUTION_LEVEL=4;b.TILEMAP_SIZE_EXP=5;b.TILEMAP_SIZE=1<<b.TILEMAP_SIZE_EXP;b.WEBMERCATOR_WORLD_EXTENT=c.create([0,0,0,0]);d.WebMercatorAuxiliarySphere.getExtent(0,0,0,b.WEBMERCATOR_WORLD_EXTENT);b.GEOGRAPHIC_WORLD_EXTENT=c.create([-180,-90,180,90])});

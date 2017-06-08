@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["require","exports","./PropertyOrigin","./utils","./extensions/serializableProperty"],function(q,h,m,l,n){function p(b,g,d,e,c,a){if(!e||!e.write)return!1;var f=b.get(d);if(void 0===f)return!1;!c&&e.write.overridePolicy&&(b=e.write.overridePolicy.call(b,f,d,a),void 0!==b&&(c=b));c||(c=e.write);return!c||!1===c.enabled||!c.allowNull&&null===f||!c.ignoreOrigin&&a&&a.origin&&g.store.originOf(d)<m.nameToId(a.origin)?!1:!0}function k(b,g,d){var e=l.getProperties(b),c=e.metadatas,a;for(a in c){var f=
+n.originSpecificWritePropertyDefinition(c[a],d);if(p(b,e,a,f,null,d)){var h=b.get(a),k={};f.write.writer.call(b,h,k,f.write.target||a,d);f=k;0<Object.keys(f).length&&(g=l.merge(g,f),d&&d.writtenProperties&&d.writtenProperties.push({target:b,propName:a,oldOrigin:m.idToReadableName(e.store.originOf(a)),newOrigin:d.origin}))}}return g}h.willPropertyWrite=function(b,g,d,e){var c=l.getProperties(b),a=n.originSpecificWritePropertyDefinition(c.metadatas[g],e);return a?p(b,c,g,a,d,e):!1};h.write=k;Object.defineProperty(h,
+"__esModule",{value:!0});h.default=k});

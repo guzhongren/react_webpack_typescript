@@ -65,17 +65,17 @@ module.exports = {
     // This is important because it allows us to avoid bundling all of our
     // dependencies, which allows browsers to cache those libraries between builds.
     externals: [{},
-    function (context, request, callback) {
-        if (/^dojo/.test(request) ||
-            /^dojox/.test(request) ||
-            /^dijit/.test(request) ||
-            /^esri/.test(request)
-        ) {
-            // return callback(null, "amd " + request);
-            return callback(null, "dojo.require('" + request + "')");
-        }
-        callback();
-    }
+    // function (context, request, callback) {
+    //     if (/^dojo/.test(request) ||
+    //         /^dojox/.test(request) ||
+    //         /^dijit/.test(request) ||
+    //         /^esri/.test(request)
+    //     ) {
+    //         // return callback(null, "amd " + request);
+    //         return callback(null, "dojo.require('" + request + "')");
+    //     }
+    //     callback();
+    // }
     ],
     plugins: [
         new webpack.ProvidePlugin({

@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["require","exports"],function(k,f){var g=Math.PI/180;f.snapToPixel=function(c,a,b){var d=b.resolution;b=b.size;c[0]=d*(Math.round(a[0]/d)+b[0]%2*.5);c[1]=d*(Math.round(a[1]/d)+b[1]%2*.5);return c};f.getOuterSize=function(c,a){var b=a.rotation*g,d=Math.abs(Math.cos(b)),b=Math.abs(Math.sin(b)),e=a.size;a=e[0];e=e[1];c[0]=Math.round(e*b+a*d);c[1]=Math.round(e*d+a*b);return c};f.getBBox=function(c,a,b){void 0===b&&(b=a.size);var d=a.center,e=d[0],d=d[1],f=b[0];b=b[1];a=.5*a.resolution;c[0]=e-
+a*f;c[1]=d-a*b;c[2]=e+a*f;c[3]=d+a*b;return c};f.bboxIntersects=function(c,a){var b=c[1],d=c[2],e=c[3],f=a[0],g=a[1],h=a[3];return!(c[0]>a[2]||d<f||b>h||e<g)}});

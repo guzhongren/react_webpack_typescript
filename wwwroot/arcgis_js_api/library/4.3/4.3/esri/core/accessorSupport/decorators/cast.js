@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../metadata","../ensureType"],function(p,f,e,g){function h(a){var b="_meta"in a?g.ensureType(a):a;return function(){for(var a=[],c=0;c<arguments.length;c++)a[c]=arguments[c];a.push(b);return"number"===typeof a[2]?k.apply(this,a):l.apply(this,a)}}function l(a,b,d,c){e.getPropertyMetadata(a,b).cast=c}function k(a,b,d,c){e.getParameterMetadata(a,b,d).cast=c}function m(a){return function(b,d,c){e.getPropertyMetadata(b,a).cast=b[d]}}var n=Object.prototype.toString;f.autocastMethod=
+function(a,b,d){if(e.hasParametersMetadata(a,b)){var c=e.getParametersMetadata(a,b).filter(function(a){return null!=a.cast});if(c.length){var f=d.value;d.value=function(){for(var a=[],b=0;b<arguments.length;b++)a[b]=arguments[b];for(b=0;b<c.length;b++){var d=c[b];a[d.index]=d.cast(a[d.index])}return f.apply(this,a)};return d}console.warn("Method "+a.declaredClass+"::"+b+" is decorated with @cast but no parameters are decorated")}};f.cast=function(){for(var a=[],b=0;b<arguments.length;b++)a[b]=arguments[b];
+if(3!==a.length||"string"!==typeof a[1]){if(1===a.length&&"[object Function]"===n.call(a[0]))return h(a[0]);if(1===a.length&&"string"===typeof a[0])return m(a[0])}}});

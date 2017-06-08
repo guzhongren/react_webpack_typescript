@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport/decorateHelper ./Layer ../core/promiseUtils ../core/Error ../core/MultiOriginJSONSupport ./mixins/PortalLayer ../core/accessorSupport/decorators".split(" "),function(b,l,d,c,e,f,g,h,k,a){b=function(b){function a(a){a=b.call(this)||this;a.resourceInfo=null;a.type="unknown";return a}d(a,b);a.prototype.initialize=function(){var a=this.resourceInfo&&(this.resourceInfo.layerType||this.resourceInfo.type),b="Unknown layer type";
+a&&(b+=" "+a);this.addResolvingPromise(f.reject(new g("layer:unknown-layer-type",b,{layerType:a})))};a.prototype.read=function(a,b){this.inherited(arguments,[{resourceInfo:a},b]);return this};a.prototype.write=function(a,b){return null};return a}(a.declared(e,h,k));c([a.shared("esri.layers.UnknownLayer")],b.prototype,"declaredClass",void 0);c([a.property({readOnly:!0})],b.prototype,"resourceInfo",void 0);c([a.property({json:{read:!1}})],b.prototype,"type",void 0);return b=c([a.subclass()],b)});

@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport/decorateHelper ../core/JSONSupport ../core/Collection ../core/collectionUtils ../core/accessorSupport/decorators ./Slide".split(" "),function(b,n,k,f,l,m,g,d,h){var e=m.ofType(h);b=function(b){function c(a){a=b.call(this,a)||this;a.slides=new e;return a}k(c,b);Object.defineProperty(c.prototype,"slides",{set:function(a){this._set("slides",g.referenceSetter(a,this._get("slides"),e))},enumerable:!0,configurable:!0});c.prototype.clone=
+function(){return new this.constructor({slides:this.slides.clone()})};c.sanitizeJSON=function(a){return{slides:void 0!==a.slides&&Array.isArray(a.slides)?a.slides.filter(function(a){return a&&!!a.viewpoint}).map(function(a){return h.sanitizeJSON(a)}):[]}};return c}(d.declared(l));f([d.property({type:e,json:{write:!0}}),d.cast(g.castForReferenceSetter)],b.prototype,"slides",null);return b=f([d.subclass("esri.webscene.Presentation")],b)});

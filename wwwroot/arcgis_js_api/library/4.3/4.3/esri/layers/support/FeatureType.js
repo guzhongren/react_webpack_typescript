@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define("../../core/declare dojo/_base/lang dojo/_base/array ../../core/lang ../../symbols/support/jsonUtils ./RangeDomain ./CodedValueDomain ./InheritedDomain ./FeatureTemplate".split(" "),function(g,h,k,l,m,n,p,q,r){return g(null,{declaredClass:"esri.layers.support.FeatureType",constructor:function(a){if(a&&h.isObject(a)){this.id=a.id;this.name=a.name;var c=a.symbol;c&&(this.symbol=m.fromJSON(c));var c=a.domains,b,e=this.domains={};for(b in c)if(c.hasOwnProperty(b)){var d=c[b];switch(d.type){case "range":e[b]=
+new n(d);break;case "codedValue":e[b]=new p(d);break;case "inherited":e[b]=new q(d)}}if(b=a.templates)for(c=this.templates=[],a=0;a<b.length;a++)c.push(new r(b[a]))}},toJSON:function(){var a={id:this.id,name:this.name,symbol:this.symbol&&this.symbol.toJSON()},c,b=this.domains,e=this.templates,d=l.fixJson;if(b){var f=a.domains={};for(c in b)b.hasOwnProperty(c)&&(f[c]=b[c]&&b[c].toJSON());d(f)}e&&(a.templates=k.map(e,function(a){return a.toJSON()}));return d(a)}})});

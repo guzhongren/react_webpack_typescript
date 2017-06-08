@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define("require exports ../core/tsSupport/declareExtendsHelper ../core/tsSupport/decorateHelper ../core/lang ./Symbol3D ../core/accessorSupport/decorators".split(" "),function(a,h,f,d,c,g,b){a=e=function(a){function b(b){b=a.call(this)||this;b.type="polygon-symbol-3d";return b}f(b,a);b.prototype.clone=function(){return new e({styleOrigin:c.clone(this.styleOrigin),symbolLayers:c.clone(this.symbolLayers),thumbnail:c.clone(this.thumbnail)})};b.fromJSON=function(b){var a=new e;a.read(b);if(2===a.symbolLayers.length&&
+"Fill"===a.symbolLayers.getItemAt(0).type&&"Line"===a.symbolLayers.getItemAt(1).type){var d=a.symbolLayers.getItemAt(0),c=a.symbolLayers.getItemAt(1);!c.enabled||b.symbolLayers&&b.symbolLayers[1]&&!1===b.symbolLayers[1].enable||(d.outline={size:c.size,color:c.material.color});a.symbolLayers.removeAt(1)}return a};return b}(b.declared(g));d([b.property()],a.prototype,"type",void 0);d([b.shared("Extrude Fill Line Icon Object Text".split(" "))],a.prototype,"_allowedLayerTypes",void 0);a=e=d([b.subclass("esri.symbols.PolygonSymbol3D")],
+a);var e;return a});

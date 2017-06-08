@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../../../core/tsSupport/extendsHelper","../../../input/InputHandler","../../navigation/NavigationConstants"],function(c,f,g,h,e){c=function(c){function d(k,a){void 0===a&&(a=!1);var b=c.call(this,"esri.views.3d.input.handlers.TwoFingerTilt",!0)||this;b.view=k;b._invert=a;b.registerIncoming("vertical-two-finger-drag",function(a){return b._handleTwoFinger(a)});return b}g(d,c);d.prototype._handleTwoFinger=function(c){var a=this.view,b=[0,-c.data.delta*(this._invert?-1:
+1)];switch(c.data.action){case "begin":a.navigation.rotate.begin(b,e.Rotate.PivotPoint.POI);break;case "update":a.navigation.rotate.update(b,e.Rotate.PivotPoint.POI);break;case "end":a.navigation.rotate.end(b)}};return d}(h.InputHandler);f.TwoFingerTilt=c});

@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define("require exports ../../../webgl/Program ../../../webgl/VertexArrayObject ../../../webgl/BufferObject ./glShaderSnippets".split(" "),function(l,m,g,h,k,f){return function(){function e(){this._initialized=!1}e.prototype.render=function(b,c,d,a){b&&c&&(this._initialized||this._initialize(b),b.setBlendFunctionSeparate(1,771,1,771),b.bindVAO(this._vertexArrayObject),b.bindProgram(this._program),c.setSamplingMode(d),b.bindTexture(c,0),this._program.setUniform1i("u_tex",0),this._program.setUniform1f("u_opacity",
+a),b.drawArrays(5,0,4),b.bindVAO())};e.prototype._initialize=function(b){if(this._initialized)return!0;var c={a_pos:0,a_tex:1},d=new g(b,f.bitblitVS,f.bitblitFS,c);if(!d)return!1;var a=new Int8Array(16);a[0]=-1;a[1]=-1;a[2]=0;a[3]=0;a[4]=1;a[5]=-1;a[6]=1;a[7]=0;a[8]=-1;a[9]=1;a[10]=0;a[11]=1;a[12]=1;a[13]=1;a[14]=1;a[15]=1;b=new h(b,c,{geometry:[{name:"a_pos",count:2,type:5120,offset:0,stride:4,normalized:!1,divisor:0},{name:"a_tex",count:2,type:5120,offset:2,stride:4,normalized:!1,divisor:0}]},{geometry:k.createVertex(b,
+35044,a)});this._program=d;this._vertexArrayObject=b;return this._initialized=!0};return e}()});

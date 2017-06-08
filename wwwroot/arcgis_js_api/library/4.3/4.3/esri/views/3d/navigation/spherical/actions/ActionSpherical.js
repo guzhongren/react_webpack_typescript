@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["../../Action","../../../support/mathUtils","../../../lib/glMatrix"],function(k,l,h){var a=h.vec3d,b=h.mat4d,f=a.create(),g=b.create();return k.createSubclass({declaredClass:"esri.views.3d.navigation.spherical.actions.ActionSpherical",constructor:function(){this._targetOnSphere=a.create();this._navSphereRadius=0},closestPointOnSphereSilhouette:function(d,m,e,c){a.cross(d,m,f);a.cross(f,d,c);a.scale(c,1/a.length(c)*e);d=-l.asin(e/a.length(d));b.identity(g);b.rotate(g,d,f);b.multiplyVec3(g,
+c)},rotateCameraWithPointsOnSphere:function(d,a,e,c,b){return this.navigation.rotateCameraWithPointsOnSphere(d,a,e,c,b)},rotationFromPointsOnSphere:function(a,b,e,c){return this.navigation.rotationFromPointsOnSphere(a,b,e,c)}})});

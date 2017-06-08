@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../../../core/tsSupport/extendsHelper","../../../input/InputHandler"],function(b,f,h,k){b=function(b){function d(l){var a=b.call(this,"esri.views.2d.input.handlers.PinchZoom",!0)||this;a.view=l;a.registerIncoming("drag",function(c){return a._handleDrag(c)});return a}h(d,b);d.prototype._handleDrag=function(b){var a=b.data;if(!(2>a.pointers.length)&&this.view.constraints.rotationEnabled){var c=a.currentState,d=c.angle,f=c.radius,c=c.center,e=a.previousState,g=e.radius,
+e=e.angle;switch(a.action){case "start":this.view.navigation.begin();break;case "update":g&&this.view.navigation.zoom.pinchRotateZoom(this.view,c,f/g,180*(d-e)/Math.PI);break;case "end":this.view.navigation.end()}b.stopPropagation()}};return d}(k.InputHandler);f.PinchRotateAndZoom=b});

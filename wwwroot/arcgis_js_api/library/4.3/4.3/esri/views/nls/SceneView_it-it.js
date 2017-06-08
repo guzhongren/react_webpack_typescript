@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define({"esri/widgets/Popup/nls/Popup":{zoom:"Zoom a",next:"Oggetto feature seguente",previous:"Oggetto feature precedente",close:"Chiudi",dock:"Banchina",undock:"Disancora",menu:"Menu",untitled:"Senza titolo",pageText:"{index} di {total}",noFeaturesFound:"Nessuna feature trovata",selectedFeature:"Feature selezionata",selectedFeatures:"{total} risultati",loading:"Caricamento in corso",_localized:{}},"esri/widgets/Popup/nls/PopupRenderer":{attach:"Allegati",fields:"Campi",fieldsSummary:"Elenco di attributi e valori",
+media:"Supporti",next:"Avanti",numCharts:"Numero di grafici",numImages:"Numero immagini",noTitle:"Senza titolo",previous:"Precedente",view:"Visualizza",_localized:{}},"esri/widgets/Spinner/nls/Spinner":{searching:"Ricerca in corso",_localized:{}},"esri/widgets/Compass/nls/Compass":{reset:"Ripristina orientamento bussola",_localized:{}},"esri/widgets/Zoom/nls/Zoom":{zoomIn:"Ingrandisci",zoomOut:"Riduci",_localized:{}},"esri/widgets/NavigationToggle/nls/NavigationToggle":{toggle:"Attiva/disattiva per eseguire pan o rotazione in 3D",
+_localized:{}}});

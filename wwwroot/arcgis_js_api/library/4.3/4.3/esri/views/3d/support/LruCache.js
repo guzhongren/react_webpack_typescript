@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["../../../core/declare"],function(c){var d=function(a,b){this.data=a;this.size=Math.floor(b/1024)};return c(null,{documents:void 0,_maxDataSize:void 0,_cachedDataSize:void 0,_lruQueue:void 0,constructor:function(a){this._maxDataSize=a;this.documents={};this._cachedDataSize=this._maxDataSize=0;this._lruQueue=[]},setMaxSize:function(a){this._maxDataSize=a},has:function(a){return null!=this.documents[a]},insert:function(a,b,c){b=new d(b,c);this.documents[a]=b;this._cachedDataSize+=b.size;this._cachedDataSize>
+this._maxDataSize&&this._collect()},use:function(a){var b=this.documents[a];b&&this._lruQueue.push(a);return b},_collect:function(){for(;this._cachedDataSize>.75*this._maxDataSize&&!(1>this._lruQueue.length);){var a=this._lruQueue.shift(),b=this.documents[a];b&&(delete this.documents[a],this._cachedDataSize-=b.size)}},getStats:function(){return{numDocs:Object.keys(this.documents).length,size:this._cachedDataSize}}})});

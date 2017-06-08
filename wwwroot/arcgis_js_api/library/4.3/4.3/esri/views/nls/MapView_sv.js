@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define({"esri/widgets/Popup/nls/Popup":{zoom:"Zooma till",next:"N\u00e4sta geoobjekt",previous:"F\u00f6reg\u00e5ende geoobjekt",close:"St\u00e4ng",dock:"Docka",undock:"Frig\u00f6r",menu:"Meny",untitled:"Namnl\u00f6s",pageText:"{index} av {total}",noFeaturesFound:"Inga geoobjekt hittades",selectedFeature:"Valt geoobjekt",selectedFeatures:"{total} resultat",loading:"Laddar",_localized:{}},"esri/widgets/Popup/nls/PopupRenderer":{attach:"Bilagor",fields:"F\u00e4lt",fieldsSummary:"Lista med attribut och v\u00e4rden",
+media:"Media",next:"N\u00e4sta",numCharts:"Antal diagram",numImages:"Antal bilder",noTitle:"Namnl\u00f6s",previous:"F\u00f6reg\u00e5ende",view:"Visa",_localized:{}},"esri/widgets/Spinner/nls/Spinner":{searching:"S\u00f6ker",_localized:{}},"esri/widgets/Compass/nls/Compass":{reset:"\u00c5terst\u00e4ll kompassorientering",_localized:{}},"esri/widgets/Zoom/nls/Zoom":{zoomIn:"Zooma in",zoomOut:"Zooma ut",_localized:{}},"esri/widgets/NavigationToggle/nls/NavigationToggle":{toggle:"V\u00e4xla f\u00f6r att panorera eller rotera i 3D",
+_localized:{}}});

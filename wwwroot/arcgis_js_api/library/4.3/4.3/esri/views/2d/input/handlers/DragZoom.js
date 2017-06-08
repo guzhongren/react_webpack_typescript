@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../../../core/tsSupport/extendsHelper","../../../input/InputHandler","../../../input/handlers/support"],function(p,q,l,m,n){return function(k){function h(d,b,c){var a=k.call(this,"esri.views.2d.input.handlers.DragZoom - "+b,!0)||this;a.view=d;a.pointerType=b;a.event={x:0,y:0,width:0,height:0,direction:1};a.registerIncoming("drag",c,function(b){return a._handleDrag(b,c)});return a}l(h,k);h.prototype._handleDrag=function(d,b){var c=d.data;if(!(1<c.pointers.length)){var a=
+c.pointers[0];if(n.eventMatchesPointerType(a.startEvent.native,this.pointerType)){var e=a.currentEvent.x,f=a.currentEvent.y,g=a.startEvent.x,a=a.startEvent.y;e>g?(this.event.x=g,this.event.width=e-g):(this.event.x=e,this.event.width=g-e);f>a?(this.event.y=a,this.event.height=f-a):(this.event.y=f,this.event.height=a-f);this.event.direction=1<b.length?-1:1;b=this.view.zoomBox;switch(c.action){case "start":b.start(this.event);break;case "update":b.update(this.event);break;case "end":b.end(this.event)}d.stopPropagation()}}};
+return h}(m.InputHandler)});

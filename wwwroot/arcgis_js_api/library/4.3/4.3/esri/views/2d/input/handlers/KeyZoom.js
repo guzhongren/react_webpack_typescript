@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["require","exports","../../../../core/tsSupport/extendsHelper","../../../input/InputHandler"],function(f,h,k,l){f=function(f){function g(b,a,c){var d=f.call(this,"esri.views.2d.input.handlers.KeyZoom",!0)||this;d.view=b;d.keys=a;d._keyToScale=(e={},e[a.zoomInOption1]=2,e[a.zoomInOption2]=2,e[a.zoomOutOption1]=.5,e[a.zoomOutOption2]=.5,e);d.registerIncoming("key-down",c,function(a){return d._handleKeyDown(a)});return d;var e}k(g,f);g.prototype._handleKeyDown=function(b){this._handleKey(b)};
+g.prototype._handleKey=function(b){var a=b.modifiers;if(!(0<a.size)||a.has("Shift")){var a=this._keyToScale[b.data.key],c=this.view.size,c={data:{x:c[0]/2,y:c[1]/2}};a&&(this.view.navigation.zoom.stepScreen(this.view,c,a),b.stopPropagation())}};return g}(l.InputHandler);h.KeyZoom=f});

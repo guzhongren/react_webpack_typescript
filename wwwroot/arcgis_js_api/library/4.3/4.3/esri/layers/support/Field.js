@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define(["../../core/kebabDictionary","../../core/JSONSupport","./CodedValueDomain","./RangeDomain"],function(e,f,g,h){var c=e({esriFieldTypeSmallInteger:"small-integer",esriFieldTypeInteger:"integer",esriFieldTypeSingle:"single",esriFieldTypeDouble:"double",esriFieldTypeLong:"long",esriFieldTypeString:"string",esriFieldTypeDate:"date",esriFieldTypeOID:"oid",esriFieldTypeGeometry:"geometry",esriFieldTypeBlob:"blob",esriFieldTypeRaster:"raster",esriFieldTypeGUID:"guid",esriFieldTypeGlobalID:"global-id",
+esriFieldTypeXML:"xml"}),d=f.createSubclass({declaredClass:"esri.layers.support.Field",properties:{alias:null,domain:{value:null,json:{read:function(a,b){b=a&&a.type;return"range"===b?new h(a):"codedValue"===b?new g(a):null}}},editable:!1,length:-1,name:null,nullable:!0,type:{json:{read:c.fromJSON}}},clone:function(){return d.fromJSON(this.toJSON())},toJSON:function(){return{alias:this.alias,domain:this.domain&&this.domain.toJSON(),editable:this.editable,length:this.length,name:this.name,nullable:this.nullable,
+type:c.toJSON(this.type)}}});return d});

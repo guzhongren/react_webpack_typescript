@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define("require exports ../../core/tsSupport/declareExtendsHelper ../../core/tsSupport/decorateHelper ../../core/lang ../../core/JSONSupport ../../Color ../../core/screenUtils ./materialUtils ../../core/accessorSupport/decorators".split(" "),function(a,e,l,d,g,m,h,n,k,b){a=f=function(a){function b(){var c=null!==a&&a.apply(this,arguments)||this;c.color=new h([0,0,0,1]);c.size=1;return c}l(b,a);b.prototype.readColor=function(c,a){a=null!=a.transparency?k.transparencyToOpacity(a.transparency):1;if(c&&
+g.isDefined(c[0]))return[c[0],c[1],c[2],a]};b.prototype.writeColor=function(a,b){b.color=[a.r,a.g,a.b];1!==a.a&&(b.transparency=k.opacityToTransparency(a.a))};b.prototype.clone=function(){return new f({color:g.clone(this.color),size:this.size})};return b}(b.declared(m));d([b.property({type:h})],a.prototype,"color",void 0);d([b.reader("color",["color","transparency"])],a.prototype,"readColor",null);d([b.writer("color")],a.prototype,"writeColor",null);d([b.property({json:{write:!0}}),b.cast(n.toPt)],
+a.prototype,"size",void 0);a=f=d([b.subclass("esri.symbols.support.Symbol3DOutline")],a);e.Symbol3DOutline=a;Object.defineProperty(e,"__esModule",{value:!0});e.default=a;var f});

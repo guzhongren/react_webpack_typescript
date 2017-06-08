@@ -1,0 +1,6 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define({"esri/widgets/Popup/nls/Popup":{zoom:"Zoomen auf",next:"N\u00e4chstes Feature",previous:"Vorheriges Feature",close:"Schlie\u00dfen",dock:"Andocken",undock:"Abdocken",menu:"Men\u00fc",untitled:"Unbenannt",pageText:"{index} von {total}",noFeaturesFound:"Keine Features gefunden",selectedFeature:"Ausgew\u00e4hltes Feature",selectedFeatures:"{total} Ergebnisse",loading:"Wird geladen",_localized:{}},"esri/widgets/Popup/nls/PopupRenderer":{attach:"Anlagen",fields:"Felder",fieldsSummary:"Liste der Attribute und Werte",
+media:"Medien",next:"Weiter",numCharts:"Anzahl der Diagramme",numImages:"Anzahl der Bilder",noTitle:"Ohne Titel",previous:"Zur\u00fcck",view:"Anzeigen",_localized:{}},"esri/widgets/Spinner/nls/Spinner":{searching:"Suchen",_localized:{}},"esri/widgets/Compass/nls/Compass":{reset:"Kompassausrichtung zur\u00fccksetzen",_localized:{}},"esri/widgets/Zoom/nls/Zoom":{zoomIn:"Vergr\u00f6\u00dfern",zoomOut:"Verkleinern",_localized:{}},"esri/widgets/NavigationToggle/nls/NavigationToggle":{toggle:"Zum Schwenken oder Drehen in 3D umschalten",
+_localized:{}}});

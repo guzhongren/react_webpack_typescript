@@ -1,0 +1,221 @@
+/**
+* @module esri/views/DOMContainer
+* @mixin
+*/
+
+
+
+
+////////////////////////////////////////////////////////////
+//
+// Properties
+//
+////////////////////////////////////////////////////////////
+
+  //----------------------------------
+  //  container
+  //----------------------------------
+
+  /**
+   * The `id` or node representing the DOM element containing the view. This is typically set in the view's constructor.
+   *
+   * @type {string}
+   * @name container
+   * @memberof module:esri/views/DOMContainer
+   *
+   * @example
+   * // Sets container to the DOM id
+   * var view = new MapView({
+   *   container: "viewDiv"  // ID of the HTML element that holds the view
+   * });
+   * @example
+   * // Sets container to the node
+   * var viewNode = document.getElementById("viewDiv");
+   * var view = new SceneView({
+   *   container: viewNode
+   * });
+   */
+
+
+
+  //----------------------------------
+  //  height
+  //----------------------------------
+
+  /**
+   * The height of the view in pixels read from the view container element.
+   *
+   * The view container needs to have a height greater than 0 to be displayed.
+   *
+   * @name height
+   * @type {number}
+   * @memberof module:esri/views/DOMContainer
+   * @readonly
+   * @default 0
+   */
+
+
+
+  //----------------------------------
+  //  popup
+  //----------------------------------
+
+  /**
+   * A Popup object that displays general content or attributes from
+   * {@link module:esri/Map#layers layers} in the [map](#map).
+   *
+   * The view has a default instance of {@link module:esri/widgets/Popup} with
+   * predefined styles and a template for defining content. The content in this
+   * default instance may be modified directly in the
+   * {@link module:esri/widgets/Popup#content popup's content} or in a layer's
+   * {@link module:esri/PopupTemplate}.
+   *
+   * You may create a new {@link module:esri/widgets/Popup} instance and set it to
+   * this property to customize the style, positioning, and content of the popup
+   * in favor of using the default popup instance on the view.
+   *
+   * @name popup
+   * @type {module:esri/widgets/Popup}
+   *
+   * @memberof module:esri/views/DOMContainer
+   * @autocast
+   */
+
+
+
+  //----------------------------------
+  //  resizing
+  //----------------------------------
+
+  /**
+   * Indicates if the view is being resized.
+   *
+   * @name resizing
+   * @type {boolean}
+   *
+   * @memberof module:esri/views/DOMContainer
+   * @readonly
+   * @default false
+   */
+
+
+  //----------------------------------
+  //  size
+  //----------------------------------
+
+  /**
+   * An array containing the width and height of the view in pixels, e.g. `[width, height]`.
+   *
+   * @name size
+   * @type {number[]}
+   *
+   * @memberof module:esri/views/DOMContainer
+   * @readonly
+   */
+
+
+
+  //----------------------------------
+  //  suspended
+  //----------------------------------
+
+  /**
+   * Indicates if the view is visible on the page.
+   * Is `true` if the view has no [container](#container),
+   * a [height](#height) or [width](#width) equal to 0,
+   * or the CSS `visibility` is `hidden`.
+   *
+   * @name suspended
+   * @type {boolean}
+   *
+   * @memberof module:esri/views/DOMContainer
+   * @readonly
+   * @default true
+   */
+
+
+
+
+  //----------------------------------
+  //  ui
+  //----------------------------------
+
+  /**
+   * Exposes the default widgets available in the view and allows you to toggle them on
+   * and off. See {@link module:esri/views/ui/DefaultUI} for more details.
+   *
+   * @name ui
+   * @type {module:esri/views/ui/DefaultUI}
+   *
+   * @memberof module:esri/views/DOMContainer
+   * @autocast
+   *
+   * @example
+   * var toggle = new BasemapToggle({
+   *   view: view,
+   *   nextBasemap: "hybrid"
+   * });
+   * // Adds an instance of BasemapToggle widget to the
+   * // top right of the view.
+   * view.ui.add(toggle, "top-right");
+   *
+   * @example
+   * // Moves the zoom and BasemapToggle widgets to the
+   * // bottom left of the view.
+   * view.ui.move([ "zoom", toggle ], "bottom-left");
+   *
+   * @example
+   * // Removes all the widgets from the bottom left of the view
+   * view.ui.empty("bottom-left");
+   *
+   * @example
+   * // Removes the compass widget from the view
+   * view.ui.remove("compass");
+   */
+
+
+
+
+  //----------------------------------
+  //  width
+  //----------------------------------
+
+  /**
+   * The width of the view in pixels read from the view container element.
+   *
+   * The view container needs to have a width greater than 0 to be displayed.
+   *
+   * @name width
+   * @type {number}
+   *
+   * @memberof module:esri/views/DOMContainer
+   * @readonly
+   * @default 0
+   */
+
+
+  ////////////////////////////////////////////////////////////
+  //
+  // Events
+  //
+  ////////////////////////////////////////////////////////////
+
+  //----------------------------------
+  //  resize
+  //----------------------------------
+
+
+  /**
+   * Fires when the view's size changes.
+   *
+   * @event module:esri/views/View#resize
+   *
+   * @property {number} oldWidth - The previous view width in pixels
+   * @property {number} oldHeight - The previous view height in pixels
+   * @property {number} width - The new measured view width in pixels
+   * @property {number} height - The new measured view height in pixels
+   *
+   * @see {@link module:esri/views/MapView#size size}
+   * @see {@link module:esri/views/MapView#height height}
+   * @see {@link module:esri/views/MapView#width width}
+   */

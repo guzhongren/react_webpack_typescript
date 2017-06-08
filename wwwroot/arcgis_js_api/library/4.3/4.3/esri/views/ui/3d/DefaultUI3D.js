@@ -1,0 +1,4 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define("require exports ../../../core/tsSupport/declareExtendsHelper ../../../core/tsSupport/decorateHelper ../../../core/accessorSupport/decorators ../DefaultUI dojo/_base/lang".split(" "),function(a,h,d,e,c,f,g){a=function(a){function b(){return a.call(this)||this}d(b,a);b.prototype.getDefaults=function(){return g.mixin(this.inherited(arguments),{components:["attribution","zoom","navigation-toggle","compass"]})};return b}(c.declared(f));return a=e([c.subclass("esri.views.ui.3d.DefaultUI3D")],a)});

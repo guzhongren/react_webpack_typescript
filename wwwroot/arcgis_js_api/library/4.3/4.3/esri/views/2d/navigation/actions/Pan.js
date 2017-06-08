@@ -1,0 +1,5 @@
+// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+// See https://js.arcgis.com/4.3/esri/copyright.txt for details.
+//>>built
+define("require exports ../../../../core/tsSupport/declareExtendsHelper ../../../../core/tsSupport/decorateHelper ../../../../core/accessorSupport/decorators ../../../../core/Accessor ../../viewpointUtils".split(" "),function(a,l,h,e,c,k,g){a=function(a){function b(f){f=a.call(this)||this;f.viewpoint=g.create();return f}h(b,a);b.prototype.begin=function(a,d){this.navigation.begin()};b.prototype.update=function(a,d){var b=d.currentEvent.x,c=d.currentEvent.y,b=(d=d.previousEvent)?d.x-b:-b,c=d?c-d.y:
+c;a.viewpoint=g.translateBy(this.viewpoint,a.viewpoint,[b||0,c||0])};b.prototype.end=function(a,b){this.navigation.end()};return b}(c.declared(k));e([c.property()],a.prototype,"viewpoint",void 0);e([c.property()],a.prototype,"navigation",void 0);return a=e([c.subclass("esri.views.2d.navigation.actions.Pan")],a)});
