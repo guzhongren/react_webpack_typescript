@@ -1,2 +1,6 @@
 /node_modules/**
+<<<<<<< HEAD
 /wwwroot/dist/** 
+=======
+/wwwroot/dist/** 
+>>>>>>> 9cc9a48232beab2a83612188f8e8daba8884b95b
