@@ -1,4 +1,4 @@
-
+/// <reference path="./@types/index.d.ts" />
 import "antd/dist/antd.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'console-polyfill';

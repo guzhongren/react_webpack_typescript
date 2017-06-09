@@ -8,9 +8,9 @@ module.exports = {
         path.resolve(__dirname, "./web/index.tsx")
     ],
     output: {
-        filename: "bundle.js",
-        path: path.resolve(__dirname + "/wwwroot/dist/js"),
-        publicPath: '/wwwroot'
+        filename: "js/bundle.js",
+        path: path.resolve(__dirname + "/wwwroot/dist/"),
+        publicPath: path.resolve(__dirname, '/wwwroot/dist/')
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -28,9 +28,9 @@ module.exports = {
         historyApiFallback: true,
         noInfo: false,
         // stats: 'minimal',
-        publicPath: "/wwwroot/dist/js/",
+        publicPath: path.resolve(__dirname, "/wwwroot/dist/"),
         // layy:true,
-        // filename: "bundle.js"
+        filename: "js/bundle.js"
     },
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
@@ -47,6 +47,10 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.(png|jpg|jpeg|gif|svg|eot|ttf|gif|woff|ico|cur)$/,
+                loader: 'url-loader?limit=1500&name=images/[hash:6].[ext]'
             },
             // fonts
             {
@@ -65,17 +69,17 @@ module.exports = {
     // This is important because it allows us to avoid bundling all of our
     // dependencies, which allows browsers to cache those libraries between builds.
     externals: [{},
-    // function (context, request, callback) {
-    //     if (/^dojo/.test(request) ||
-    //         /^dojox/.test(request) ||
-    //         /^dijit/.test(request) ||
-    //         /^esri/.test(request)
-    //     ) {
-    //         // return callback(null, "amd " + request);
-    //         return callback(null, "dojo.require('" + request + "')");
-    //     }
-    //     callback();
-    // }
+        // function (context, request, callback) {
+        //     if (/^dojo/.test(request) ||
+        //         /^dojox/.test(request) ||
+        //         /^dijit/.test(request) ||
+        //         /^esri/.test(request)
+        //     ) {
+        //         // return callback(null, "amd " + request);
+        //         return callback(null, "dojo.require('" + request + "')");
+        //     }
+        //     callback();
+        // }
     ],
     plugins: [
         new webpack.ProvidePlugin({
@@ -97,7 +101,7 @@ module.exports = {
         //     minChunks: 2
         // }),
         new webpack.HotModuleReplacementPlugin(),
-        // 开启全局的模块热替换(HMR)
+        // // 开启全局的模块热替换(HMR)
         new webpack.NamedModulesPlugin(),
         // 当模块热替换(HMR)时在浏览器控制台输出对用户更友好的模块名字信息
     ],

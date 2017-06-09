@@ -1,20 +1,21 @@
 const path = require('path');
 const webpack = require('webpack');
-
+var isDevBuild = process.argv.indexOf('--env.prod') < 0;
 var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
+console.log(path.resolve(__dirname, './wwwroot/dist/'),"dsadfs");
 module.exports = {
-    context: path.resolve(__dirname, 'src'),
+    // context: path.resolve(__dirname, 'web'),
     entry: [
-        path.resolve(__dirname, "./src/index.tsx")
+        path.resolve(__dirname, "./web/index.tsx")
     ],
     output: {
-        filename: "bundle.js",
-        path: path.resolve(__dirname + "/wwwroot/dist/js"),
-        publicPath: '/wwwroot'
+        filename: "js/bundle.js",
+        path: path.resolve(__dirname + "/wwwroot/dist/"),
+        // publicPath: path.resolve(__dirname, './wwwroot/dist/')
     },
 
     // Enable sourcemaps for debugging webpack's output.
-    devtool: "source-map",
+    devtool: "cheap-module-eval-source-map",
     // devServer: {
     //     // 指定启动服务的更目录
     //     contentBase: path.resolve(__dirname, "wwwroot"),
@@ -28,13 +29,13 @@ module.exports = {
     //     historyApiFallback: true,
     //     noInfo: false,
     //     // stats: 'minimal',
-    //     publicPath: "/wwwroot/dist/js/",
+    //     publicPath: path.resolve(__dirname, "/wwwroot/dist/"),
     //     // layy:true,
-    //     // filename: "bundle.js"
+    //     filename: "js/bundle.js"
     // },
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: [".ts", ".tsx", ".js", ".json"]
+        extensions: ["config.js", ".ts", ".tsx", ".js", ".json"]
     },
 
     module: {
@@ -46,8 +47,21 @@ module.exports = {
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader?modules',],
+                use: ['style-loader', 'css-loader'],
             },
+            {
+                test: /\.(png|jpg|jpeg|gif|svg|eot|ttf|gif|woff|ico|cur)$/,
+                loader: 'url-loader?limit=1500&name=images/[hash:6].[ext]'
+            },
+            // fonts
+            {
+                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: "url-loader?limit=10000&name=dist/fa/[hash].[ext]&mimetype=application/font-woff"
+            },
+            {
+                test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: "file-loader?name=dist/fa/[hash].[ext]"
+            }
         ]
     },
 
@@ -55,14 +69,26 @@ module.exports = {
     // assume a corresponding global variable exists and use that instead.
     // This is important because it allows us to avoid bundling all of our
     // dependencies, which allows browsers to cache those libraries between builds.
-    // externals: {
-    //     "react": "React",
-    //     "react-dom": "ReactDOM"
-    // },
+    externals: [{},
+        // function (context, request, callback) {
+        //     if (/^dojo/.test(request) ||
+        //         /^dojox/.test(request) ||
+        //         /^dijit/.test(request) ||
+        //         /^esri/.test(request)
+        //     ) {
+        //         // return callback(null, "amd " + request);
+        //         return callback(null, "dojo.require('" + request + "')");
+        //     }
+        //     callback();
+        // }
+    ],
     plugins: [
-        new webpack.DefinePlugin({
-            'process.env.NODE.ENV': "production" //development
+        new webpack.ProvidePlugin({
+            $: 'jquery', jQuery: 'jquery'
         }),
+        // new webpack.DefinePlugin({
+        //     'process.env.NODE.ENV': "development" //production
+        // }),
         // 生产环境用
         // new UglifyJsPlugin({
         //     beautify: false,
@@ -78,7 +104,7 @@ module.exports = {
         // new webpack.HotModuleReplacementPlugin(),
         // // 开启全局的模块热替换(HMR)
         // new webpack.NamedModulesPlugin(),
-        // // 当模块热替换(HMR)时在浏览器控制台输出对用户更友好的模块名字信息
+        // 当模块热替换(HMR)时在浏览器控制台输出对用户更友好的模块名字信息
     ],
 
 };

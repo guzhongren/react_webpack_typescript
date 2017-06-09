@@ -25,7 +25,7 @@ export class Home1 extends React.Component<IndexProps, undefined> {
                 {/*<Button onClick={this.handleOnclick.bind(this)}>antd Test</Button>*/}
 
                 {/*react-bootstrap*/}
-                {/*<igm src={require<string>("")} />*/}
+                {/*<div><img src={require<string>("./img/file_resource.png")} /></div>*/}
                 <ButtonGroup>
                     <Button color="primary">Left</Button>{' '}
                     <Button color="secondary">Middle</Button>{' '}

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prebuild": "del-cli dist/js/ -f",
+    "prebuild": "del-cli wwwroot/dist/js/ -f",
     "build": "webpack --config webpack.publish.config.js",
     "dev": "webpack-dev-server --config webpack.develop.config.js"
   },
@@ -41,10 +41,12 @@
     "css-loader": "^0.28.4",
     "del-cli": "^1.0.0",
     "dojo-typings": "^1.11.6",
+    "file-loader": "^0.11.2",
     "source-map-loader": "^0.2.1",
     "style-loader": "^0.18.1",
     "tslint": "^5.4.2",
     "typescript": "^2.3.3",
+    "url-loader": "^0.5.8",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   }
