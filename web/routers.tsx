@@ -11,7 +11,7 @@ import {
 import {Home1} from "./components/home";
 const Index = () => (
   <Router>
-    <div>
+    <div style={{height:"100%", width:"100%"}}>
       <ul>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/about">About</Link></li>
@@ -27,7 +27,7 @@ const Index = () => (
   </Router>
 )
 const Home = () => (
-  <div>
+  <div style={{height:"100%", width:"100%"}}>
     <h2>Home</h2>
     <Home1 compiler={"ts"} framework={"react"}/>
   </div>
