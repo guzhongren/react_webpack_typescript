@@ -14,7 +14,7 @@ module.exports = {
     },
 
     // Enable sourcemaps for debugging webpack's output.
-    devtool: "cheap-module-eval-source-map",
+    devtool: isDevBuild ? "cheap-module-eval-source-map" : null,
     devServer: {
         // 指定启动服务的更目录
         contentBase: path.resolve(__dirname, "wwwroot"),

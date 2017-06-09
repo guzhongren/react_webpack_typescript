@@ -19,7 +19,7 @@ export class Home1 extends React.Component<IndexProps, undefined> {
     }
     render() {
         return (
-            <div style={{width:"100%",  height:"100%"}}>
+            <div style={{}}>
                 <h1 id="test">Hello from {this.props.compiler} and {this.props.framework}</h1>
                 {/*antd*/}
                 {/*<Button onClick={this.handleOnclick.bind(this)}>antd Test</Button>*/}
