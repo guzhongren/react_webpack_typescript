@@ -26,9 +26,9 @@ export interface EsriMapExtState {
 export class EsriMapExt extends React.Component<EsriMapExtProps, EsriMapExtState> {
     constructor(props) {
         super(props);
-        // let style= Object.assign({height:"calc(100% - 48px)"}, this.props.style);
+        let style= Object.assign({height:"calc(100% - 48px)"}, this.props.style);
         this.state = {
-            style: this.props.style ? this.props.style : { height: "calc(100% - 56px)" }
+            style: style
         }
     };
 
