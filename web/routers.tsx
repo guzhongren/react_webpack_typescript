@@ -18,7 +18,6 @@ const Index = () => (
       <Route  path="/" component={Home} ></Route>  
       <Route  path="/test" component={Test} ></Route>
       <Route  path="/ags" component={AGS} ></Route>    
-      <Route exact path="/user/:username" component={User}/>
     </div>
   </Router>
 )
@@ -27,9 +26,6 @@ const Home = () => (
     <h2>Home</h2>
   </div>
 )
-const User = ({ match }) => {
-  return <h1>Hello {match.params.username}!</h1>
-}
 const Test = () => (
   <Home1 compiler={"ts"} framework={"react"} />
 );
