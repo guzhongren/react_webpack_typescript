@@ -36,7 +36,7 @@ npm run build
 ```
 在浏览器中打开wwwroot下的index.html页面即可
 ### 效果
-![React+ Webpack+ Typescript](./gitImgs/react_webpack_typescript.png)
+![React+ Webpack+ Typescript](./wwwroot/imgs/react_webpack_typescript.png)
 
 ### 参考
 本项目使用最新版bootstrap-react,名称为[reactstrap](https://reactstrap.github.io/);
