@@ -45,18 +45,16 @@ export class EsriMapExt extends React.Component<EsriMapExtProps, EsriMapExtState
             });
         })
     }
-
     componentWillReceiveProps(nextProps: EsriMapExtProps) {
         if (this.props !== nextProps) {
             this.setState({
             });
         }
     }
-
     refs: {
         [string: string]: any;
     }
-
+    
     render() {
         return (
             <div id="viewDiv" style={this.state.style}></div>
