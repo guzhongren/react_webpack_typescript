@@ -10,7 +10,7 @@ module.exports = {
     output: {
         filename: "js/bundle.js",
         path: path.resolve(__dirname + "/wwwroot/dist/"),
-        publicPath: path.resolve(__dirname, '/wwwroot/dist/')
+        publicPath: '/dist/'
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -28,7 +28,7 @@ module.exports = {
         historyApiFallback: true,
         noInfo: false,
         // stats: 'minimal',
-        publicPath: path.resolve(__dirname, "/wwwroot/dist/"),
+        publicPath: "/dist/",
         // layy:true,
         filename: "js/bundle.js"
     },

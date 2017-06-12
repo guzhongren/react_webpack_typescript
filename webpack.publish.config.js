@@ -1,38 +1,20 @@
 const path = require('path');
 const webpack = require('webpack');
-var isDevBuild = process.argv.indexOf('--env.prod') < 0;
+var isDevBuild = process.argv.indexOf('--env.prod') > 0;
 var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
-console.log(path.resolve(__dirname, './wwwroot/dist/'),"dsadfs");
 module.exports = {
-    // context: path.resolve(__dirname, 'web'),
+    context: path.resolve(__dirname, 'web'),
     entry: [
         path.resolve(__dirname, "./web/index.tsx")
     ],
     output: {
         filename: "js/bundle.js",
         path: path.resolve(__dirname + "/wwwroot/dist/"),
-        // publicPath: path.resolve(__dirname, './wwwroot/dist/')
+        publicPath: '/dist/'
     },
 
     // Enable sourcemaps for debugging webpack's output.
-    devtool: "cheap-module-eval-source-map",
-    // devServer: {
-    //     // 指定启动服务的更目录
-    //     contentBase: path.resolve(__dirname, "wwwroot"),
-    //     // 指定端口号
-    //     port: 8080,
-    //     host: 'localhost',
-    //     // 启用热更新
-    //     hot: true,
-    //     // 以下信息可有可无，为了完整
-    //     inline: true,
-    //     historyApiFallback: true,
-    //     noInfo: false,
-    //     // stats: 'minimal',
-    //     publicPath: path.resolve(__dirname, "/wwwroot/dist/"),
-    //     // layy:true,
-    //     filename: "js/bundle.js"
-    // },
+    // devtool:  null,
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: ["config.js", ".ts", ".tsx", ".js", ".json"]
@@ -70,17 +52,6 @@ module.exports = {
     // This is important because it allows us to avoid bundling all of our
     // dependencies, which allows browsers to cache those libraries between builds.
     externals: [{},
-        // function (context, request, callback) {
-        //     if (/^dojo/.test(request) ||
-        //         /^dojox/.test(request) ||
-        //         /^dijit/.test(request) ||
-        //         /^esri/.test(request)
-        //     ) {
-        //         // return callback(null, "amd " + request);
-        //         return callback(null, "dojo.require('" + request + "')");
-        //     }
-        //     callback();
-        // }
     ],
     plugins: [
         new webpack.ProvidePlugin({

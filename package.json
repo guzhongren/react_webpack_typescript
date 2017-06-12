@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "del-cli wwwroot/dist/js/ -f",
     "build": "webpack --config webpack.publish.config.js",
-    "dev": "webpack-dev-server --inline --hot --config webpack.develop.config.js"
+    "dev": "webpack-dev-server --config webpack.develop.config.js"
   },
   "author": "",
   "license": "ISC",
