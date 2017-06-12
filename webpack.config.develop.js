@@ -18,7 +18,7 @@ module.exports = {
         // 指定启动服务的更目录
         contentBase: path.resolve(__dirname, "./wwwroot"),
         // 指定端口号
-        port: 8081,
+        port: 8080,
         host: 'localhost',
         // 启用热更新
         hot: true,
