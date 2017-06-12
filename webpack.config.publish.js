@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-var isDevBuild = process.argv.indexOf('--env.prod') < 0;
+var isDevBuild = process.argv.indexOf('--env.prod') > 0;
 var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 module.exports = {
     context: path.resolve(__dirname, 'web'),
@@ -14,24 +14,7 @@ module.exports = {
     },
 
     // Enable sourcemaps for debugging webpack's output.
-    devtool: isDevBuild ? "cheap-module-eval-source-map" : null,
-    devServer: {
-        // 指定启动服务的更目录
-        contentBase: path.resolve(__dirname, "wwwroot"),
-        // 指定端口号
-        port: 8080,
-        host: 'localhost',
-        // 启用热更新
-        hot: true,
-        // 以下信息可有可无，为了完整
-        inline: true,
-        historyApiFallback: true,
-        noInfo: false,
-        // stats: 'minimal',
-        publicPath: "/dist/",
-        // layy:true,
-        filename: "js/bundle.js"
-    },
+    // devtool:  null,
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: ["config.js", ".ts", ".tsx", ".js", ".json"]
@@ -69,21 +52,14 @@ module.exports = {
     // This is important because it allows us to avoid bundling all of our
     // dependencies, which allows browsers to cache those libraries between builds.
     externals: [{},
-        // function (context, request, callback) {
-        //     if (/^dojo/.test(request) ||
-        //         /^dojox/.test(request) ||
-        //         /^dijit/.test(request) ||
-        //         /^esri/.test(request)
-        //     ) {
-        //         // return callback(null, "amd " + request);
-        //         return callback(null, "dojo.require('" + request + "')");
-        //     }
-        //     callback();
-        // }
     ],
     plugins: [
         new webpack.ProvidePlugin({
             $: 'jquery', jQuery: 'jquery'
+        }),
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require("./wwwroot/dist/js/vendor-manifest.json")
         }),
         // new webpack.DefinePlugin({
         //     'process.env.NODE.ENV': "development" //production
@@ -100,9 +76,9 @@ module.exports = {
         //     filename: "vendor.bundle.js",
         //     minChunks: 2
         // }),
-        new webpack.HotModuleReplacementPlugin(),
+        // new webpack.HotModuleReplacementPlugin(),
         // // 开启全局的模块热替换(HMR)
-        new webpack.NamedModulesPlugin(),
+        // new webpack.NamedModulesPlugin(),
         // 当模块热替换(HMR)时在浏览器控制台输出对用户更友好的模块名字信息
     ],
 

@@ -11708,7 +11708,7 @@ const index_1 = __webpack_require__(61);
 const Index = () => (React.createElement(react_router_dom_1.BrowserRouter, { basename: "/" },
     React.createElement("div", { style: { height: "100%", width: "100%" } },
         React.createElement(navBar_1.ProjectNavBar, { projectName: "React 脚手架测试框架" }),
-        React.createElement(react_router_dom_1.Route, { path: "/", component: Home }),
+        React.createElement(react_router_dom_1.Route, { exact: true, path: "/", component: Home }),
         React.createElement(react_router_dom_1.Route, { path: "/test", component: Test }),
         React.createElement(react_router_dom_1.Route, { path: "/ags", component: AGS }))));
 const Home = () => (React.createElement("div", { style: { width: "100%" } },

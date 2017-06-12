@@ -16,7 +16,7 @@ const Index = () => (
   <Router basename="/">
     <div style={{ height: "100%", width: "100%" }}>
       <ProjectNavBar projectName={"React 脚手架测试框架"} />
-      <Route path="/" component={Home} ></Route>
+      <Route exact path="/" component={Home} ></Route>
       <Route path="/test" component={Test} ></Route>
       <Route path="/ags" component={AGS} ></Route>
     </div>
@@ -28,7 +28,7 @@ const Home = () => (
   </div>
 )
 const Test = () => (
-  <Home1 compiler={"tsss"} framework={"react"} />
+  <Home1 compiler={"ts"} framework={"react"} />
 );
 const AGS = () => (
   <EsriMapExt />
