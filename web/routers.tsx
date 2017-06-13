@@ -11,7 +11,7 @@ import {
 import { Home1 } from "./components/home";
 import { ProjectNavBar } from "./components/navBar";
 import { EsriMapExt } from "./components/map/index";
-
+import { LeafletMap } from "./components/map/leaflet";
 const Index = () => (
   <Router basename="/">
     <div style={{ height: "100%", width: "100%" }}>
@@ -23,8 +23,8 @@ const Index = () => (
   </Router>
 )
 const Home = () => (
-  <div style={{ width: "100%" }}>
-    <h2>Hello </h2>
+  <div style={{ width: "100%", height: "calc(100% - 56px)" }}>
+    <LeafletMap />
   </div>
 )
 const Test = () => (

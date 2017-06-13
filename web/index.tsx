@@ -8,12 +8,12 @@ import 'es5-shim/es5-sham';
 import 'es6-shim';
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import BasicExample from "./routers";
+import APP from "./routers";
 
 // import { Home1 } from "./components/home";
 
 ReactDOM.render(
-    <BasicExample />,
+    <APP />,
     document.getElementById("app")
 );
 

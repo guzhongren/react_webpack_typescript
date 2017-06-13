@@ -24,6 +24,11 @@ git clone https://github.com/Guzhongren/react_webpack_typescript.git
         ```shell
         npm install -g webpack
         ```        
+3. 运行项目
+### 打包公共资源
+```shell
+npm run vendor
+```
 ### 开发环境运行
 在项目跟目录运行如下命令
 ```shell

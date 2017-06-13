@@ -15,7 +15,10 @@ module.exports = {
             'reactstrap',
             'react-dom',
             'react-router-dom',
-            'jquery'
+            'jquery',
+            "leaflet",
+            "react-leaflet"
+
         ]
     },
     output: {
