@@ -25,23 +25,23 @@ git clone https://github.com/Guzhongren/react_webpack_typescript.git
         npm install -g webpack
         ```        
 3. 运行项目
-### 打包公共资源
-```shell
-npm run vendor
-```
-### 开发环境运行
-在项目跟目录运行如下命令
-```shell
-npm run dev
-```
-在浏览器中打开http://localhost:8080即可
-### 生产环境运行
-```shell
-npm run build
-```
-在浏览器中打开wwwroot下的index.html页面即可
-### 效果
-![React+ Webpack+ Typescript](./wwwroot/imgs/react_webpack_typescript.png)
+    ### 打包公共资源
+    ```shell
+    npm run vendor
+    ```
+    ### 开发环境运行
+    在项目跟目录运行如下命令
+    ```shell
+    npm run dev
+    ```
+    在浏览器中打开http://localhost:8080即可
+    ### 生产环境运行
+    ```shell
+    npm run build
+    ```
+    在浏览器中打开wwwroot下的index.html页面即可
+    ### 效果
+    ![React+ Webpack+ Typescript](./wwwroot/imgs/react_webpack_typescript.png)
 
 ### 参考
 本项目使用最新版bootstrap-react,名称为[reactstrap](https://reactstrap.github.io/);
