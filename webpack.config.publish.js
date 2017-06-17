@@ -83,11 +83,6 @@ module.exports = {
         //     compress: { screw_ie8: true, warnings: false },
         //     comments: false
         // }),
-        // new CommonsChunkPlugin({
-        //     name: "vendor",
-        //     filename: "vendor.bundle.js",
-        //     minChunks: 2
-        // }),
         // new webpack.HotModuleReplacementPlugin(),
         // // 开启全局的模块热替换(HMR)
         // new webpack.NamedModulesPlugin(),
