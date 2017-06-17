@@ -45,9 +45,6 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 loader: "awesome-typescript-loader",
-                // options: {
-                //     postcss: [require('autoprefixer')({ browsers: ['last 10 Chrome versions', 'last 5 Firefox versions', 'Safari >= 6', 'ie > 8'] })]
-                // }
             },
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
@@ -77,7 +74,6 @@ module.exports = {
             }
         ]
     },
-    // postcss: [autoprefixer({ browsers: ['last 2 versions'] })],
     // When importing a module whose path matches one of the following, just
     // assume a corresponding global variable exists and use that instead.
     // This is important because it allows us to avoid bundling all of our
@@ -95,16 +91,6 @@ module.exports = {
         //css和less输出
         extractCSS,
         extractLESS,
-        // new webpack.DefinePlugin({
-        //     'process.env.NODE.ENV': "development" //production
-        // }),
-        // 生产环境用
-        // new UglifyJsPlugin({
-        //     beautify: false,
-        //     mangle: { screw_ie8 : true },
-        //     compress: { screw_ie8: true, warnings: false },
-        //     comments: false
-        // }),
         new webpack.HotModuleReplacementPlugin(),
         // // 开启全局的模块热替换(HMR)
         new webpack.NamedModulesPlugin(),
