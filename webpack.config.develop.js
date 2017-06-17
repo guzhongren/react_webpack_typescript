@@ -1,6 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
 var isDevBuild = process.argv.indexOf('--env.prod') < 0;
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const autoprefixer = require('autoprefixer');
+const postcss = require("postcss");
 module.exports = {
     context: path.resolve(__dirname, 'web'),
     entry: [
@@ -13,12 +16,12 @@ module.exports = {
     },
 
     // Enable sourcemaps for debugging webpack's output.
-    devtool: isDevBuild ? "cheap-module-eval-source-map" : null,
+    devtool: isDevBuild ? "source-map" : null,
     devServer: {
         // 指定启动服务的更目录
         contentBase: path.resolve(__dirname, "./wwwroot"),
         // 指定端口号
-        port: 8080,
+        port: 8082,
         host: 'localhost',
         // 启用热更新
         hot: true,
@@ -33,7 +36,7 @@ module.exports = {
     },
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: ["config.js", ".ts", ".tsx", ".js", ".json"]
+        extensions: [".less", ".ts", ".tsx", ".js", ".json"]
     },
 
     module: {
@@ -41,18 +44,29 @@ module.exports = {
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
             {
                 test: /\.tsx?$/,
-                loader: "awesome-typescript-loader"
+                loader: "awesome-typescript-loader",
+                // options: {
+                //     postcss: [require('autoprefixer')({ browsers: ['last 10 Chrome versions', 'last 5 Firefox versions', 'Safari >= 6', 'ie > 8'] })]
+                // }
             },
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader'],
+                use: ["style-loader", "css-loader"],
+                use:ExtractTextPlugin.extract({
+                    use:"css-loader"
+                })
             },
-            {
-                test: "/\.less$/",
-                use: ['style-loader', 'css-loader', 'less-loader']
-            },
+            // {
+            //     test: /\.less$/,
+            //     loader: ExtractTextPlugin.extract({
+            //         fallback: "style-loader",
+            //         use: [
+            //             "css-loader", "less-loader"
+            //         ]
+            //     })
+            // },
             {
                 test: /\.(png|jpg|jpeg|gif|svg|eot|ttf|gif|woff|ico|cur)$/,
                 loader: 'url-loader?limit=1500&name=images/[hash:6].[ext]'
@@ -68,23 +82,12 @@ module.exports = {
             }
         ]
     },
-
+    // postcss: [autoprefixer({ browsers: ['last 2 versions'] })],
     // When importing a module whose path matches one of the following, just
     // assume a corresponding global variable exists and use that instead.
     // This is important because it allows us to avoid bundling all of our
     // dependencies, which allows browsers to cache those libraries between builds.
     externals: [{},
-        // function (context, request, callback) {
-        //     if (/^dojo/.test(request) ||
-        //         /^dojox/.test(request) ||
-        //         /^dijit/.test(request) ||
-        //         /^esri/.test(request)
-        //     ) {
-        //         // return callback(null, "amd " + request);
-        //         return callback(null, "dojo.require('" + request + "')");
-        //     }
-        //     callback();
-        // }
     ],
     plugins: [
         new webpack.ProvidePlugin({
@@ -94,6 +97,7 @@ module.exports = {
             context: __dirname,
             manifest: require("./wwwroot/dist/js/vendor-manifest.json")
         }),
+        new ExtractTextPlugin("css/style.css"),
         // new webpack.DefinePlugin({
         //     'process.env.NODE.ENV': "development" //production
         // }),

@@ -1,5 +1,5 @@
-/*@import (reference) "../../navBar/style/index";*/
+/*@import (reference) "../../navBar/style/index.less";*/
 .leafletStyle{
-     height: "calc(100% - 56px)";
-      width: "100%";
+     height: calc(100% - 56px);
+     width: "100%";
 }

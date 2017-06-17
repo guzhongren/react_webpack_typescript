@@ -6,9 +6,10 @@ import { Map, TileLayer } from 'react-leaflet';
 // import Control from 'react-leaflet-control';
 import "./style/leaflet.css";
 
-const stamenTonerTiles = 'http://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}.png';
+// const stamenTonerTiles = 'http://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}.png';
+const osm = "http://{s}.tile.osm.org/{z}/{x}/{y}.png";
 const stamenTonerAttr = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
-const mapCenter = [36.05 , 103.75];
+const mapCenter = [36.05, 103.75];
 const zoomLevel = 12;
 export class LeafletMap extends React.Component<any, any>{
     constructor(props: any, state: any) {
@@ -20,10 +21,10 @@ export class LeafletMap extends React.Component<any, any>{
 
     render() {
         return (
-            <Map center={mapCenter} zoom={zoomLevel} classname="leafletStyle" style={{height:"100%"}}>
+            <Map center={mapCenter} zoom={zoomLevel} className="leafletStyle" style={{ height: "100%" }}>
                 <TileLayer
                     attribution={stamenTonerAttr}
-                    url={stamenTonerTiles}
+                    url={osm}
                 />
             </Map>
         )
