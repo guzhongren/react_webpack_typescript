@@ -14,14 +14,12 @@ module.exports = {
         path: path.resolve(__dirname + "/wwwroot/dist/"),
         publicPath: '/dist/'
     },
-
     // Enable sourcemaps for debugging webpack's output.
     devtool: isProductionBuild ? false : "source-map",
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: ["config.js", ".ts", ".tsx", ".js", ".json"]
     },
-
     module: {
         rules: [
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
@@ -55,7 +53,6 @@ module.exports = {
             }
         ]
     },
-
     // When importing a module whose path matches one of the following, just
     // assume a corresponding global variable exists and use that instead.
     // This is important because it allows us to avoid bundling all of our
@@ -73,9 +70,6 @@ module.exports = {
         //css和less输出
         extractCSS,
         extractLESS,
-        // new webpack.DefinePlugin({
-        //     'process.env.NODE.ENV': "development" //production
-        // }),
         // 生产环境用
         // new UglifyJsPlugin({
         //     beautify: false,
@@ -83,10 +77,6 @@ module.exports = {
         //     compress: { screw_ie8: true, warnings: false },
         //     comments: false
         // }),
-        // new webpack.HotModuleReplacementPlugin(),
-        // // 开启全局的模块热替换(HMR)
-        // new webpack.NamedModulesPlugin(),
-        // 当模块热替换(HMR)时在浏览器控制台输出对用户更友好的模块名字信息
     ],
 
 };

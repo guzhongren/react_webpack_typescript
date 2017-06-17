@@ -14,7 +14,6 @@ module.exports = {
         path: path.resolve(__dirname + "./wwwroot/dist/"),
         publicPath: '/dist/'
     },
-
     // Enable sourcemaps for debugging webpack's output.
     devtool: isDevBuild ? "source-map" : null,
     devServer: {
@@ -38,7 +37,6 @@ module.exports = {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: [".less", ".css",".ts", ".tsx", ".js", ".json"]
     },
-
     module: {
         rules: [
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
