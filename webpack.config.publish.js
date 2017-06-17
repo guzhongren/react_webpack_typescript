@@ -1,7 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
 var isDevBuild = process.argv.indexOf('--env.prod') > 0;
-var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const extractCSS = new ExtractTextPlugin('css/css.css');
+const extractLESS = new ExtractTextPlugin('css/less.css');
 module.exports = {
     context: path.resolve(__dirname, 'web'),
     entry: [
@@ -29,7 +31,14 @@ module.exports = {
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader'],
+                use: ["style-loader", "css-loader"],
+                use: extractCSS.extract({
+                    use: "css-loader"
+                })
+            },
+            {
+                test: /\.less$/i,
+                use: extractLESS.extract(['css-loader', 'less-loader'])
             },
             {
                 test: /\.(png|jpg|jpeg|gif|svg|eot|ttf|gif|woff|ico|cur)$/,
@@ -61,6 +70,9 @@ module.exports = {
             context: __dirname,
             manifest: require("./wwwroot/dist/js/vendor-manifest.json")
         }),
+        //css和less输出
+        extractCSS,
+        extractLESS,
         // new webpack.DefinePlugin({
         //     'process.env.NODE.ENV': "development" //production
         // }),

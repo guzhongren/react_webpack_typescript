@@ -2,8 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 var isDevBuild = process.argv.indexOf('--env.prod') < 0;
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const autoprefixer = require('autoprefixer');
-const postcss = require("postcss");
+const extractCSS = new ExtractTextPlugin('css/css.css');
+const extractLESS = new ExtractTextPlugin('css/less.css');
 module.exports = {
     context: path.resolve(__dirname, 'web'),
     entry: [
@@ -36,7 +36,7 @@ module.exports = {
     },
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: [".less", ".ts", ".tsx", ".js", ".json"]
+        extensions: [".less", ".css",".ts", ".tsx", ".js", ".json"]
     },
 
     module: {
@@ -54,19 +54,14 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ["style-loader", "css-loader"],
-                use:ExtractTextPlugin.extract({
-                    use:"css-loader"
+                use: extractCSS.extract({
+                    use: "css-loader"
                 })
             },
-            // {
-            //     test: /\.less$/,
-            //     loader: ExtractTextPlugin.extract({
-            //         fallback: "style-loader",
-            //         use: [
-            //             "css-loader", "less-loader"
-            //         ]
-            //     })
-            // },
+            {
+                test: /\.less$/i,
+                use: extractLESS.extract(['css-loader', 'less-loader'])
+            },
             {
                 test: /\.(png|jpg|jpeg|gif|svg|eot|ttf|gif|woff|ico|cur)$/,
                 loader: 'url-loader?limit=1500&name=images/[hash:6].[ext]'
@@ -97,7 +92,9 @@ module.exports = {
             context: __dirname,
             manifest: require("./wwwroot/dist/js/vendor-manifest.json")
         }),
-        new ExtractTextPlugin("css/style.css"),
+        //css和less输出
+        extractCSS,
+        extractLESS,
         // new webpack.DefinePlugin({
         //     'process.env.NODE.ENV': "development" //production
         // }),
@@ -107,11 +104,6 @@ module.exports = {
         //     mangle: { screw_ie8 : true },
         //     compress: { screw_ie8: true, warnings: false },
         //     comments: false
-        // }),
-        // new CommonsChunkPlugin({
-        //     name: "vendor",
-        //     filename: "vendor.bundle.js",
-        //     minChunks: 2
         // }),
         new webpack.HotModuleReplacementPlugin(),
         // // 开启全局的模块热替换(HMR)

@@ -11,7 +11,6 @@
     // 转译 React 组件为 JavaScript 代码
   ],
   "plugins": [
-
     [
       "import",
       {
