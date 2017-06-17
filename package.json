@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "vendor": "webpack --config webpack.config.vender.js",
-    "build": "webpack --config webpack.config.publish.js",
-    "dev": "webpack-dev-server --config webpack.config.develop.js"
+    "build": "webpack --config webpack.config.publish.js --env production",
+    "dev": "webpack-dev-server --config webpack.config.develop.js  --env development"
   },
   "author": "",
   "license": "ISC",

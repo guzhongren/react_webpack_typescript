@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-var isDevBuild = process.argv.indexOf('--env.prod') < 0;
+var isDevBuild = process.argv.indexOf('development') > 0;
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const extractCSS = new ExtractTextPlugin('css/css.css');
 const extractLESS = new ExtractTextPlugin('css/less.css');
@@ -21,7 +21,7 @@ module.exports = {
         // 指定启动服务的更目录
         contentBase: path.resolve(__dirname, "./wwwroot"),
         // 指定端口号
-        port: 8082,
+        port: 8080,
         host: 'localhost',
         // 启用热更新
         hot: true,

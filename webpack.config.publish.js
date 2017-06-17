@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-var isDevBuild = process.argv.indexOf('--env.prod') > 0;
+var isProductionBuild = process.argv.indexOf('production') > 0;
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const extractCSS = new ExtractTextPlugin('css/css.css');
 const extractLESS = new ExtractTextPlugin('css/less.css');
@@ -16,7 +16,7 @@ module.exports = {
     },
 
     // Enable sourcemaps for debugging webpack's output.
-    // devtool:  null,
+    devtool: isProductionBuild ? false : "source-map",
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: ["config.js", ".ts", ".tsx", ".js", ".json"]
