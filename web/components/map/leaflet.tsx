@@ -14,10 +14,8 @@ export class LeafletMap extends React.Component<any, any>{
     constructor(props: any, state: any) {
         super(props, state);
         this.state = {
-
         }
     }
-
     render() {
         return (
             <Map center={mapCenter} zoom={zoomLevel} className="leafletStyle" style={{ height: "100%" }}>

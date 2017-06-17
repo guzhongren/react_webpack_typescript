@@ -9,8 +9,8 @@ if (!esriLoader.isLoaded()) {
     });
 }
 
-// import EsriMap = require("esri/Map");
-// import MapView = require("esri/views/MapView");
+import EsriMap = require("esri/Map");
+import MapView = require("esri/views/MapView");
 
 
 
@@ -26,7 +26,7 @@ export interface EsriMapExtState {
 export class EsriMapExt extends React.Component<EsriMapExtProps, EsriMapExtState> {
     constructor(props) {
         super(props);
-        let style= Object.assign({height:"calc(100% - 48px)"}, this.props.style);
+        let style= Object.assign({height:"calc(100% - 56px)"}, this.props.style);
         this.state = {
             style: style
         }
