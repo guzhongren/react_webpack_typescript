@@ -34,7 +34,7 @@ git clone https://github.com/Guzhongren/react_webpack_typescript.git
     ```shell
     npm run dev
     ```
-    在浏览器中打开http://localhost:8080即可
+    在浏览器中打开 http://localhost:8080 即可
     ### 生产环境运行
     ```shell
     npm run build
