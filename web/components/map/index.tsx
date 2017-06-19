@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 import * as React from 'react';
 import * as esriLoader from 'esri-loader';
 
@@ -8,11 +11,6 @@ if (!esriLoader.isLoaded()) {
         }
     });
 }
-
-import EsriMap = require("esri/Map");
-import MapView = require("esri/views/MapView");
-
-
 
 export interface EsriMapExtProps {
     style?: React.CSSProperties
@@ -26,7 +24,7 @@ export interface EsriMapExtState {
 export class EsriMapExt extends React.Component<EsriMapExtProps, EsriMapExtState> {
     constructor(props) {
         super(props);
-        let style= Object.assign({height:"calc(100% - 56px)"}, this.props.style);
+        let style = Object.assign({ height: "calc(100% - 56px)" }, this.props.style);
         this.state = {
             style: style
         }
@@ -34,8 +32,8 @@ export class EsriMapExt extends React.Component<EsriMapExtProps, EsriMapExtState
 
     componentDidMount() {
         esriLoader.dojoRequire(['esri/Map', 'esri/views/MapView'], (EsriMap, MapView) => {
-            var map = new EsriMap({
-                basemap: "streets"
+            let map = new EsriMap({
+                basemap: "osm"
             });
             var view = new MapView({
                 container: "viewDiv",  // Reference to the scene div created in step 5
@@ -54,7 +52,7 @@ export class EsriMapExt extends React.Component<EsriMapExtProps, EsriMapExtState
     refs: {
         [string: string]: any;
     }
-    
+
     render() {
         return (
             <div id="viewDiv" style={this.state.style}></div>
