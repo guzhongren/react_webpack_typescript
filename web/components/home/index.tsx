@@ -3,7 +3,7 @@ import $ = require("jquery");
 // antd Test
 // import { Button } from "antd";
 import { Button, ButtonGroup } from 'reactstrap';
-import { EsriMapExt } from "../map";
+import { EsriMapExt } from "../baseComponents/map";
 export interface IndexProps { compiler: string; framework: string; }
 
 // 'HelloProps' describes the shape of props.

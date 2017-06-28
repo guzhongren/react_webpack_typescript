@@ -10,8 +10,10 @@ import {
 } from 'react-router-dom'
 import { Home1 } from "./components/home";
 import { ProjectNavBar } from "./components/navBar";
-import { EsriMapExt } from "./components/map/index";
-import { LeafletMap } from "./components/map/leaflet";
+import { EsriMapExt } from "./components/baseComponents/map/index";
+import { LeafletMap } from "./components/baseComponents/map/leaflet";
+
+
 const Index = () => (
   <Router basename="/">
     <div style={{ height: "100%", width: "100%" }}>

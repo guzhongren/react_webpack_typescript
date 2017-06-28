@@ -15,7 +15,8 @@ import MapView = require("esri/views/MapView");
 
 
 export interface EsriMapExtProps {
-    style?: React.CSSProperties
+    style?: React.CSSProperties,
+    onCreated?:(map:EsriMap)=>void; // 地图创建完成后传出创建的地图
 }
 export interface EsriMapExtState {
     style?: React.CSSProperties
@@ -40,9 +41,10 @@ export class EsriMapExt extends React.Component<any, any> {
             var view = new MapView({
                 container: "viewDiv",  // Reference to the scene div created in step 5
                 map: map,  // Reference to the map object created before the scene
-                zoom: 4,  // Sets the zoom level based on level of detail (LOD)
-                center: [15, 65]  // Sets the center point of view in lon/lat
+                // zoom: 4,  // Sets the zoom level based on level of detail (LOD)
+                // center: [15, 65]  // Sets the center point of view in lon/lat
             });
+            this.props.onCreated(map);
         })
     }
     componentWillReceiveProps(nextProps: EsriMapExtProps) {
