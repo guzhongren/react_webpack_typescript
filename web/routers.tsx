@@ -2,6 +2,7 @@
  * created at 2017-06-08
  * ./index.tsx
  */
+/// <reference path="./@types/index.d.ts" />
 import * as React from 'react'
 import {
   BrowserRouter as Router,
